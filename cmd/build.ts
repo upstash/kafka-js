@@ -1,13 +1,17 @@
 // ex. scripts/build_npm.ts
 import { build } from "https://deno.land/x/dnt/mod.ts";
-
+import { VERSION } from "../version.ts";
 await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
+  shims: {
+    "deno": true,
+    "undici": true,
+  },
   package: {
     // package.json properties
     name: "@chronark/upstash-kafka",
-    version: Deno.args[0],
+    version: VERSION,
     description: "Serverless kafka client for upstash",
     license: "MIT",
     repository: {

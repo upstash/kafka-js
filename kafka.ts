@@ -1,5 +1,6 @@
 import { UpstashError } from "./error.ts";
 import {
+  ErrorResponse,
   KafkaConfig,
   ProduceOptions,
   ProduceRequest,
@@ -38,7 +39,7 @@ export class Kafka {
       body: JSON.stringify(request),
     });
     if (!res.ok) {
-      throw new UpstashError(await res.json());
+      throw new UpstashError(await res.json() as ErrorResponse);
     }
     const json = await res.json() as ProduceResponse[];
     return json[0];
@@ -60,7 +61,7 @@ export class Kafka {
       body: JSON.stringify(requests),
     });
     if (!res.ok) {
-      throw new UpstashError(await res.json());
+      throw new UpstashError(await res.json() as ErrorResponse);
     }
 
     return await res.json() as ProduceResponse[];
