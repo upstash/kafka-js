@@ -1,21 +1,18 @@
 import { UpstashError } from "./error.ts";
 import {
   ErrorResponse,
-  KafkaConfig,
   ProduceOptions,
   ProduceRequest,
   ProduceResponse,
 } from "./types.ts";
 
-export class Kafka {
+export class Producer {
   private readonly url: string;
   private readonly authorization: string;
 
-  constructor(config: KafkaConfig) {
-    this.url = config.url;
-    this.authorization = `Basic ${
-      btoa(`${config.username}:${config.password}`)
-    }`;
+  constructor(url: string, authoriztation: string) {
+    this.url = url;
+    this.authorization = authoriztation;
   }
   /**
    * Produce a single message to a single topic
@@ -39,9 +36,9 @@ export class Kafka {
       body: JSON.stringify(request),
     });
     if (!res.ok) {
-      throw new UpstashError(await res.json() as ErrorResponse);
+      throw new UpstashError((await res.json()) as ErrorResponse);
     }
-    const json = await res.json() as ProduceResponse[];
+    const json = (await res.json()) as ProduceResponse[];
     return json[0];
   }
 
@@ -61,9 +58,9 @@ export class Kafka {
       body: JSON.stringify(requests),
     });
     if (!res.ok) {
-      throw new UpstashError(await res.json() as ErrorResponse);
+      throw new UpstashError((await res.json()) as ErrorResponse);
     }
 
-    return await res.json() as ProduceResponse[];
+    return (await res.json()) as ProduceResponse[];
   }
 }
