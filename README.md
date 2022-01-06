@@ -42,9 +42,11 @@ const kafka = new Kafka({
 ## Produce a single message
 
 ```typescript
-const message = { hello: "world" };
-const res = await kafka.produce("<my.topic>", message);
-const res = await kafka.produce("<my.topic>", message, {
+
+const p = kafka.producer()
+const message = { hello: "world" }; // Objects will get serialized using `JSON.stringify`
+const res = await p.produce("<my.topic>", message);
+const res = await p.produce("<my.topic>", message, {
   partition: 1,
   timestamp: 12345,
   key: "<custom key>",
@@ -57,7 +59,8 @@ const res = await kafka.produce("<my.topic>", message, {
 The same options from the example above can be set for every message.
 
 ```typescript
-const res = await kafka.produceMany([
+const p = kafka.producer()
+const res = await p.produceMany([
   {
     topic: "my.topic",
     value: "my message",
