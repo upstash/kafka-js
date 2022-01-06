@@ -1,38 +1,15 @@
 import { assertEquals } from "https://deno.land/std@0.120.0/testing/asserts.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-
-import { Kafka } from "./kafka.ts";
-config({ export: true });
-
-const url = Deno.env.get("UPSTASH_KAFKA_REST_URL");
-if (!url) {
-  throw new Error("Could not find url");
-}
-const username = Deno.env.get("UPSTASH_KAFKA_REST_USERNAME");
-if (!username) {
-  throw new Error("Could not find username");
-}
-const password = Deno.env.get("UPSTASH_KAFKA_REST_PASSWORD");
-if (!password) {
-  throw new Error("Could not find password");
-}
-
-const kafka = new Kafka({
-  url,
-  username,
-  password,
-});
-
-enum Topic {
-  TEST = "test.topic",
-}
+import { kafka, Topic } from "./test_setup.ts";
 
 Deno.test("Publish a single message succesfully", async () => {
   const p = kafka.producer();
   const c = kafka.consumer();
   const message = { hello: "test" };
+  const header = { key: "signature", value: "abcd" };
 
-  const { partition, offset, topic } = await p.produce(Topic.TEST, message);
+  const { partition, offset, topic } = await p.produce(Topic.TEST, message, {
+    headers: [header],
+  });
 
   const found = await c.fetch({
     topic,
@@ -40,4 +17,37 @@ Deno.test("Publish a single message succesfully", async () => {
     offset,
   });
   assertEquals(JSON.parse(found[0].value), message);
+  assertEquals(found[0].headers[0], header);
+});
+
+Deno.test({
+  name: "Publish multiple messages to different topics succesfully",
+  ignore: true, // "Currently bugged in upstash"
+  fn: async () => {
+    const p = kafka.producer();
+    const c = kafka.consumer();
+    const message0 = { hello: "test" };
+    const message1 = { hello: "world" };
+
+    const res = await p.produceMany([
+      {
+        topic: Topic.RED,
+        value: JSON.stringify(message0),
+      },
+      {
+        topic: Topic.PURPLE,
+        value: JSON.stringify(message1),
+      },
+    ]);
+
+    const found = await c.fetch({
+      topicPartitionOffsets: res.map((r) => ({
+        topic: r.topic,
+        partition: r.partition,
+        offset: r.offset,
+      })),
+    });
+    assertEquals(JSON.parse(found[0].value), message0);
+    assertEquals(JSON.parse(found[1].value), message1);
+  },
 });

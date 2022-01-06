@@ -24,7 +24,7 @@ export class Producer {
   ): Promise<ProduceResponse> {
     const request: ProduceRequest = {
       topic,
-      value: JSON.stringify(message),
+      value: typeof message === "string" ? message : JSON.stringify(message),
       ...opts,
     };
 

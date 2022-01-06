@@ -10,6 +10,10 @@ export type TopicPartitionOffset = TopicPartition & {
 };
 
 export type FetchRequest =
+  & {
+    timeout?: number;
+    topicPartitionOffsets?: TopicPartitionOffset[];
+  }
   & (
     | {
       topic: string;
@@ -17,15 +21,11 @@ export type FetchRequest =
       offset: number;
     }
     | {
-      topic: never;
-      partition: never;
-      offset: never;
+      topic?: never;
+      partition?: never;
+      offset?: never;
     }
-  )
-  & {
-    timeout?: number;
-    topicPartitionOffsets?: TopicPartitionOffset[];
-  };
+  );
 
 type BaseConsumerRequest = {
   /**
@@ -44,6 +44,10 @@ type BaseConsumerRequest = {
 export type ConsumeRequest = BaseConsumerRequest & {
   topics: string[];
 
+  /**
+   * Defines the time to wait at most for the fetch request in milliseconds.
+   * It's optional and its default value 1000.
+   */
   timeout?: number;
 
   /**

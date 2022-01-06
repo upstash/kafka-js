@@ -50,7 +50,7 @@ export class Admin {
    * Lists consumers belonging to the user known by the REST server.
    */
   public async consumers(): Promise<GroupAssignments[]> {
-    const res = await fetch(`${this.url}/topics`, {
+    const res = await fetch(`${this.url}/consumers`, {
       method: "GET",
       headers: {
         Authorization: this.authorization,
