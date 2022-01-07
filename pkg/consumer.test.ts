@@ -1,28 +1,34 @@
 import { kafka, Topic } from "./test_setup.ts";
-import { assertArrayIncludes } from "https://deno.land/std@0.120.0/testing/asserts.ts";
+import { assert } from "https://deno.land/std@0.120.0/testing/asserts.ts";
 
 Deno.test({
   name: "Consume from a topic with no special config",
   fn: async () => {
     const p = kafka.producer();
     const c = kafka.consumer();
+    const consumerGroupId = crypto.randomUUID();
+    const instanceId = crypto.randomUUID();
+    const topic = Topic.BLUE;
 
-    console.log(JSON.stringify(await kafka.admin().consumers(), null, 2));
-
-    const consumerGroupId = "consume_test_basic"; // crypto.randomUUID();
-    const instanceId = "consume_test_basic"; // crypto.randomUUID()
     const message = crypto.randomUUID();
-    await p.produce(Topic.RED, message);
+    await p.produce(topic, message);
 
-    const messages = await c.consume({
-      consumerGroupId,
-      instanceId,
-      topics: [Topic.RED],
-    });
+    let messageFound = false;
+    for (let i = 0; i < 30; i++) {
+      const messages = await c.consume({
+        consumerGroupId,
+        instanceId,
+        topics: [topic],
+        autoOffsetReset: "earliest",
+      });
+      if (messages.map((m) => m.value).includes(message)) {
+        messageFound = true;
+        break;
+      }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+    await kafka.admin().removeConsumerInstance(consumerGroupId, instanceId);
 
-    assertArrayIncludes(
-      messages.map((m) => m.value),
-      [message],
-    );
+    assert(messageFound);
   },
 });
