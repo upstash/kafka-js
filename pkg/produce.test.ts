@@ -1,6 +1,8 @@
-import { assertEquals } from "https://deno.land/std@0.120.0/testing/asserts.ts";
+import {
+  assertArrayIncludes,
+  assertEquals,
+} from "https://deno.land/std@0.120.0/testing/asserts.ts";
 import { kafka, Topic } from "./test_setup.ts";
-
 Deno.test("Publish a single message succesfully", async () => {
   const p = kafka.producer();
   const c = kafka.consumer();
@@ -22,7 +24,7 @@ Deno.test("Publish a single message succesfully", async () => {
 
 Deno.test({
   name: "Publish multiple messages to different topics succesfully",
-  ignore: true, // "Currently bugged in upstash"
+
   fn: async () => {
     const p = kafka.producer();
     const c = kafka.consumer();
@@ -47,7 +49,10 @@ Deno.test({
         offset: r.offset,
       })),
     });
-    assertEquals(JSON.parse(found[0].value), message0);
-    assertEquals(JSON.parse(found[1].value), message1);
+
+    assertArrayIncludes(
+      found.map((f) => JSON.parse(f.value)),
+      [message0, message1],
+    );
   },
 });

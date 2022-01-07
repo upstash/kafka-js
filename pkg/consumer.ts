@@ -74,6 +74,19 @@ export type ConsumeRequest = BaseConsumerRequest & {
   autoOffsetReset?: "earliest" | "latest" | "none";
 };
 
+export type FetchOptions = {
+  /**
+   * If true `fetch` will call upstash once for each topic in your request.
+   * This circumenvents the issue where upstash only returns from a single topic
+   * at a time when using fetch.
+   *
+   * All requests are executed in parallel.
+   *
+   * Default: true
+   */
+  parallel?: boolean;
+};
+
 export type CommitRequest = BaseConsumerRequest & {
   /**
    * Commits the last consumed messages if left empty
@@ -105,6 +118,10 @@ export class Consumer {
   /**
    * Fetches the message(s) starting with a given offset inside the partition.
    * This API doesn't use consumer groups.
+   *
+   * When fetching from multiple topics it is important to understand that
+   * upstash only returns data for a single topic at a time, so you should
+   * call `fetch` multiple times.
    *
    * Fetch from a single <topic, partition, offset>:
    * ```ts
@@ -143,18 +160,43 @@ export class Consumer {
    *    })
    * ```
    */
-  public async fetch(req: FetchRequest): Promise<Message[]> {
-    const res = await fetch(`${this.url}/fetch`, {
-      method: "POST",
-      headers: {
-        Authorization: this.authorization,
-      },
-      body: JSON.stringify(req),
-    });
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
+  public async fetch(
+    req: FetchRequest,
+    opts: FetchOptions = { parallel: true },
+  ): Promise<Message[]> {
+    let requests = [req];
+
+    if (opts?.parallel) {
+      requests = (req.topicPartitionOffsets ?? []).map((r) => ({
+        ...r,
+        timeout: req.timeout,
+      }));
+      if (req.topic) {
+        requests.push({
+          topic: req.topic,
+          partition: req.partition,
+          offset: req.offset,
+          timeout: req.timeout,
+        });
+      }
     }
-    return (await res.json()) as Message[];
+    const responses = await Promise.all(
+      requests.map(async (r) => {
+        const res = await fetch(`${this.url}/fetch`, {
+          method: "POST",
+          headers: {
+            Authorization: this.authorization,
+          },
+          body: JSON.stringify(r),
+        });
+        if (!res.ok) {
+          throw new UpstashError((await res.json()) as ErrorResponse);
+        }
+        return (await res.json()) as Message[];
+      }),
+    );
+
+    return responses.flat();
   }
 
   /**
