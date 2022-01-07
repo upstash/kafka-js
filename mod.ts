@@ -1,3 +1,3 @@
-export * from "./kafka.ts";
-export * from "./error.ts";
-export * from "./types.ts";
+export * from "./pkg/kafka.ts";
+export * from "./pkg/error.ts";
+export * from "./pkg/types.ts";
