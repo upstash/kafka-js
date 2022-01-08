@@ -4,6 +4,6 @@
   },
   "git": {
     "requireBranch": "main",
-    "commitMessage":"chore: release v${VERSION}"
+    "commitMessage": "chore: release v${VERSION}"
   }
 }
