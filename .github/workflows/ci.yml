@@ -46,7 +46,6 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          cache: npm
           node-version: ${{ matrix.node }}
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
