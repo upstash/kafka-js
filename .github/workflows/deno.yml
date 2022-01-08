@@ -34,9 +34,9 @@ jobs:
       - name: Run tests
         run: deno test -A --unstable
         env:
-          UPSTASH_KAFKA_REST_URL: ${{secret.UPSTASH_KAFKA_REST_URL}}
-          UPSTASH_KAFKA_REST_USERNAME: ${{secret.UPSTASH_KAFKA_REST_USERNAME}}
-          UPSTASH_KAFKA_REST_PASSWORD: ${{secret.UPSTASH_KAFKA_REST_PASSWORD}}
+          UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
+          UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
+          UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
 
 
   test_node:
@@ -62,6 +62,6 @@ jobs:
       - name: Test
         run: make build
         env:
-          UPSTASH_KAFKA_REST_URL: ${{secret.UPSTASH_KAFKA_REST_URL}}
-          UPSTASH_KAFKA_REST_USERNAME: ${{secret.UPSTASH_KAFKA_REST_USERNAME}}
-          UPSTASH_KAFKA_REST_PASSWORD: ${{secret.UPSTASH_KAFKA_REST_PASSWORD}}
+          UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
+          UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
+          UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
