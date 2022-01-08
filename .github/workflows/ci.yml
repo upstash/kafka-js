@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["14", "16", "17"]
+        node: ["16", "17"]
     runs-on: ubuntu-latest
 
     steps:

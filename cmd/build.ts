@@ -1,4 +1,3 @@
-// ex. scripts/build_npm.ts
 import { build } from "https://deno.land/x/dnt/mod.ts";
 import { VERSION } from "../version.ts";
 await build({
@@ -7,7 +6,6 @@ await build({
   shims: {
     deno: true,
     undici: true,
-    crypto: true,
   },
   package: {
     // package.json properties

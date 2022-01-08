@@ -8,7 +8,8 @@ build:
 	deno run --allow-all ./cmd/build.ts
 
 
-	npm --prefix=npm uninstall chalk
+	node ./npm/test_runner.js --unhandled-rejections=strict
+	# npm --prefix=npm uninstall chalk
 	
 
 test:
