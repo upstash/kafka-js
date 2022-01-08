@@ -31,7 +31,6 @@ jobs:
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
 
-
   test_node:
     needs: [test]
     strategy:

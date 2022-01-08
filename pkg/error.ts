@@ -7,9 +7,9 @@ export class UpstashError extends Error {
   public readonly status: number;
   constructor(res: { result: string; error: string; status: number }) {
     super(res.error);
-    this.name = "UpstashError",
-      this.result = res.result,
-      this.error = res.error,
-      this.status = res.status;
+    this.name = "UpstashError";
+    this.result = res.result;
+    this.error = res.error;
+    this.status = res.status;
   }
 }

@@ -5,9 +5,9 @@ await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
   shims: {
-    "deno": true,
-    "undici": true,
-    "crypto": true,
+    deno: true,
+    undici: true,
+    crypto: true,
   },
   package: {
     // package.json properties
