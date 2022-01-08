@@ -1,10 +1,8 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
-
+  release:
+  
 jobs:
   release:
     name: Release
@@ -12,9 +10,9 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
+        
+      - name: Set env
+        run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -27,17 +25,13 @@ jobs:
           deno-version: v1.x
 
       - name: Build
-        run: make build
+        run: 	deno run --allow-all ./cmd/build.ts ${{ env.VERSION }}
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        # with:
-        #   # This expects you to have a script called release which does a build for your packages and calls changeset publish
-        #   publish: make build
+      - name: Publish
+        run: npm --prefix=npm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

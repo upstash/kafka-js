@@ -4,7 +4,6 @@ export
 build:
 	rm -rf ./npm
 	mkdir npm
-	cp .env ./npm/.env
 	deno run --allow-all ./cmd/build.ts
 
 
@@ -14,3 +13,6 @@ build:
 
 test:
 	deno test --allow-all
+
+release:
+	npx release-it
