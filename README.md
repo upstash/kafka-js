@@ -106,7 +106,7 @@ More examples can be found in the
 
 ## Commit manually
 
-While consume can handle committing automatically, you can also use
+While `consume` can handle committing automatically, you can also use
 `Consumer.commit` to manually commit.
 
 ```typescript
@@ -119,6 +119,7 @@ const messages = await c.consume({
   consumerGroupId,
   instanceId,
   topics: [topic],
+  autoCommit: false
 });
 
 
@@ -129,7 +130,6 @@ for (const message of messages) {
   await c.commit({
     consumerGroupId,
     instanceId,
-    autoCommit: false
     offset: {
       topic: message.topic,
       partition: message.partition,
