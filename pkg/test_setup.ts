@@ -1,8 +1,4 @@
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-
 import { Kafka } from "./kafka.ts";
-config({ export: true });
-
 const url = Deno.env.get("UPSTASH_KAFKA_REST_URL");
 if (!url) {
   throw new Error("Could not find url");

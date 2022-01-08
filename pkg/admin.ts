@@ -78,7 +78,7 @@ export class Admin {
         },
       },
     );
-    await res.body?.cancel();
+    await res.json();
 
     if (!res.ok) {
       throw new UpstashError((await res.json()) as ErrorResponse);

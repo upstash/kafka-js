@@ -7,6 +7,7 @@ await build({
   shims: {
     "deno": true,
     "undici": true,
+    "crypto": true,
   },
   package: {
     // package.json properties
