@@ -1,9 +1,6 @@
 name: Test
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
   test:
@@ -25,11 +22,17 @@ jobs:
         run: deno lint
 
       - name: Run tests
-        run: deno test -A --unstable
+        run: deno test -A --unstable --coverage=coverage
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
+      - name: Convert coverage
+        run: deno --unstable coverage ./coverage --lcov > coverage.lcov
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   test_node:
     needs: [test]

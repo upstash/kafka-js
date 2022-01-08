@@ -14,5 +14,6 @@ build:
 test:
 	deno test --allow-all
 
-release:
-	npx release-it
+node_example:
+	npm --prefix=example install
+	npx ts-node ./example/main.ts

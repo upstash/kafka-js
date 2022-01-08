@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "example": "./node_modules/.bin/ts-node ./main.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chronark/upstash-kafka": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}
