@@ -8,7 +8,9 @@ Serverless kafka client for upstash
 
 - `node`: >= 16
 
-This project is written using the [deno](https://deno.land/) runtime and then transpiled to node and published as a package on npm. The transpiled code uses deno shims that require node >= 16.
+This project is written using the [deno](https://deno.land/) runtime and then
+transpiled to node and published as a package on npm. The transpiled code uses
+deno shims that require node >= 16.
 
 # Installation
 
@@ -83,7 +85,11 @@ const res = await p.produceMany([
 
 ## Consume
 
-The first time a consumer is created, it needs to figure out the group coordinator by asking the Kafka brokers and joins the consumer group. This process takes some time to complete. That's why when a consumer instance is created first time, it may return empty messages until consumer group coordination is completed.
+The first time a consumer is created, it needs to figure out the group
+coordinator by asking the Kafka brokers and joins the consumer group. This
+process takes some time to complete. That's why when a consumer instance is
+created first time, it may return empty messages until consumer group
+coordination is completed.
 
 ```typescript
 const c = kafka.consumer();
@@ -95,14 +101,15 @@ const messages = await c.consume({
 });
 ```
 
-More examples can be found in the [docstring](https://github.com/chronark/upstash-kafka/blob/main/pkg/consumer.ts#L265)
+More examples can be found in the
+[docstring](https://github.com/chronark/upstash-kafka/blob/main/pkg/consumer.ts#L265)
 
 ## Commit manually
 
-While consume can handle committing automatically, you can also use `Consumer.commit` to manually commit.
+While consume can handle committing automatically, you can also use
+`Consumer.commit` to manually commit.
 
 ```typescript
-
 const consumerGroupId = "mygroup"
 const instanceId = "myinstance"
 const topic = "my.topic"
@@ -148,4 +155,6 @@ const messages = await c.fetch({
 
 ## Examples
 
-There is a minimal working example application available in [/example](https://github.com/chronark/upstash-kafka/tree/main/example) as well as various examples in the docstrings of each method.
+There is a minimal working example application available in
+[/example](https://github.com/chronark/upstash-kafka/tree/main/example) as well
+as various examples in the docstrings of each method.

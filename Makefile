@@ -17,3 +17,7 @@ test:
 node_example:
 	npm --prefix=example install
 	npx ts-node ./example/main.ts
+
+fmt:
+	deno fmt
+	deno lint
