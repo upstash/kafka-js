@@ -118,7 +118,7 @@ const messages = await c.consume({
   consumerGroupId,
   instanceId,
   topics: [topic],
-  autoCommit: false
+  autoCommit: false,
 });
 
 for (const message of messages) {
