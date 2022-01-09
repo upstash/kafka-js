@@ -6,8 +6,8 @@ async function main() {
     username: process.env.UPSTASH_KAFKA_REST_USERNAME!,
     password: process.env.UPSTASH_KAFKA_REST_PASSWORD!,
   });
-  const p = await kafka.producer();
-  const c = await kafka.consumer();
+  const p = kafka.producer();
+  const c = kafka.consumer();
 
   await p.produce("test.topic", "Hello World");
   const messages = await c.consume({
