@@ -4,7 +4,7 @@ This is a minimum working example to produce a message and consume from a topic.
 
 ## Requirements
 
-- `node`: >=16
+- `node`: 14.x or greater
 
 ```bash
 npm install
