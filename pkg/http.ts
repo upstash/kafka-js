@@ -55,7 +55,7 @@ export class HttpClient {
         });
 
         const body = await res.json();
-        if (!res.ok || body["error"]) {
+        if (!res.ok) {
           throw new UpstashError(body as ErrorResponse);
         }
 
