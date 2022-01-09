@@ -20,9 +20,16 @@ await build({
           },
         ],
       },
+      {
+        package: { name: "btoa", version: "1.2.1" },
+        globalNames: [{ name: "btoa", exportName: "default" }],
+      },
     ],
   },
   package: {
+    devDependencies: {
+      "@types/btoa": "1.2.3",
+    },
     // package.json properties
     name: "@chronark/upstash-kafka",
     version: Deno.args[0],
