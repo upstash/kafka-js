@@ -1,4 +1,4 @@
-import { build } from "https://deno.land/x/dnt@0.14.0/mod.ts";
+import { build } from "https://deno.land/x/dnt/mod.ts";
 await build({
   cjs: false, // node-fetch requirement
   entryPoints: ["./mod.ts"],
