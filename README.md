@@ -6,11 +6,10 @@ Serverless kafka client for upstash
 
 # Requirements
 
-- `node`: >= 16
+- `node`: 16.x
 
 This project is written using the [deno](https://deno.land/) runtime and then
-transpiled to node and published as a package on npm. The transpiled code uses
-deno shims that require node >= 16.
+transpiled to node and published as a package on npm.
 
 # Installation
 
