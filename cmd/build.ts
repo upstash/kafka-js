@@ -1,4 +1,4 @@
-import { build } from "https://deno.land/x/dnt/mod.ts";
+import { build } from "https://deno.land/x/dnt@0.14.0/mod.ts";
 await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",

@@ -8,7 +8,7 @@ build:
 
 
 	node ./npm/test_runner.js --unhandled-rejections=strict
-	# npm --prefix=npm uninstall chalk
+	npm --prefix=npm uninstall chalk
 	
 
 test:
@@ -21,3 +21,7 @@ node_example:
 fmt:
 	deno fmt
 	deno lint
+
+
+test-npm:
+	node ./npm/test_runner.js
