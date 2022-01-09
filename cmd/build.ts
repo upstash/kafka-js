@@ -11,6 +11,7 @@ await build({
     name: "@chronark/upstash-kafka",
     version: Deno.args[0],
     description: "Serverless kafka client for upstash",
+    keywords: ["upstash", "kafka", "serverless", "deno", "rest", "api"],
     license: "MIT",
     repository: {
       type: "git",
