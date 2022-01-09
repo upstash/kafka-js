@@ -1,0 +1,109 @@
+{
+  "scriptId": "29",
+  "url": "deno:ext/fetch/22_body.js",
+  "functions": [
+    {
+      "functionName": "chunkToString",
+      "ranges": [
+        { "startOffset": 1484, "endOffset": 1586, "count": 4 },
+        { "startOffset": 1553, "endOffset": 1560, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "InnerBody",
+      "ranges": [
+        { "startOffset": 1729, "endOffset": 2099, "count": 7 },
+        { "startOffset": 1885, "endOffset": 1939, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "get stream",
+      "ranges": [
+        { "startOffset": 2105, "endOffset": 2632, "count": 4 },
+        { "startOffset": 2180, "endOffset": 2592, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "start",
+      "ranges": [{ "startOffset": 2441, "endOffset": 2559, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unusable",
+      "ranges": [
+        { "startOffset": 2732, "endOffset": 2963, "count": 4 },
+        { "startOffset": 2914, "endOffset": 2962, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "consume",
+      "ranges": [
+        { "startOffset": 3326, "endOffset": 4183, "count": 4 },
+        { "startOffset": 3371, "endOffset": 3417, "count": 0 },
+        { "startOffset": 3638, "endOffset": 3826, "count": 8 },
+        { "startOffset": 3722, "endOffset": 3826, "count": 4 },
+        { "startOffset": 4076, "endOffset": 4177, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "consumeBody",
+      "ranges": [
+        { "startOffset": 5598, "endOffset": 5775, "count": 4 },
+        { "startOffset": 5722, "endOffset": 5774, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "json",
+      "ranges": [{ "startOffset": 7704, "endOffset": 7878, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "packageData",
+      "ranges": [
+        { "startOffset": 8606, "endOffset": 10039, "count": 4 },
+        { "startOffset": 8678, "endOffset": 8737, "count": 0 },
+        { "startOffset": 8744, "endOffset": 8883, "count": 0 },
+        { "startOffset": 8890, "endOffset": 9906, "count": 0 },
+        { "startOffset": 9980, "endOffset": 10029, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 9683, "endOffset": 9719, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "extractBody",
+      "ranges": [
+        { "startOffset": 10147, "endOffset": 12472, "count": 3 },
+        { "startOffset": 10397, "endOffset": 10568, "count": 0 },
+        { "startOffset": 10608, "endOffset": 10764, "count": 0 },
+        { "startOffset": 10834, "endOffset": 11125, "count": 0 },
+        { "startOffset": 11163, "endOffset": 11316, "count": 0 },
+        { "startOffset": 11361, "endOffset": 11533, "count": 0 },
+        { "startOffset": 11649, "endOffset": 11865, "count": 0 },
+        { "startOffset": 11904, "endOffset": 11995, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "webidl.converters.BodyInit_DOMString",
+      "ranges": [
+        { "startOffset": 12518, "endOffset": 13707, "count": 3 },
+        { "startOffset": 12690, "endOffset": 12772, "count": 0 },
+        { "startOffset": 12801, "endOffset": 12857, "count": 0 },
+        { "startOffset": 12890, "endOffset": 12950, "count": 0 },
+        { "startOffset": 12990, "endOffset": 13073, "count": 0 },
+        { "startOffset": 13105, "endOffset": 13354, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

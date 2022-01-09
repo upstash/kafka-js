@@ -1,5 +1,5 @@
-import { UpstashError } from "./error.ts";
-import { ErrorResponse, Message } from "./types.ts";
+import { Message } from "./types.ts";
+import { HttpClient } from "./http.ts";
 
 export type TopicPartition = {
   topic: string;
@@ -108,12 +108,10 @@ export type CommittedRequest = BaseConsumerRequest & {
  * Consume API has some additional methods if you wish to commit offsets manually.
  */
 export class Consumer {
-  private readonly url: string;
-  private readonly authorization: string;
+  private readonly client: HttpClient;
 
-  constructor(url: string, authoriztation: string) {
-    this.url = url;
-    this.authorization = authoriztation;
+  constructor(client: HttpClient) {
+    this.client = client;
   }
   /**
    * Fetches the message(s) starting with a given offset inside the partition.
@@ -181,19 +179,13 @@ export class Consumer {
       }
     }
     const responses = await Promise.all(
-      requests.map(async (r) => {
-        const res = await fetch(`${this.url}/fetch`, {
-          method: "POST",
-          headers: {
-            Authorization: this.authorization,
-          },
-          body: JSON.stringify(r),
-        });
-        if (!res.ok) {
-          throw new UpstashError((await res.json()) as ErrorResponse);
-        }
-        return (await res.json()) as Message[];
-      }),
+      requests.map(
+        async (r) =>
+          await this.client.post<Message[]>({
+            path: ["fetch"],
+            body: r,
+          }),
+      ),
     );
 
     return responses.flat();
@@ -273,9 +265,8 @@ export class Consumer {
     if (typeof req.timeout === "number") {
       body.timeout = req.timeout;
     }
-    const headers: HeadersInit = {
-      authorization: this.authorization,
-    };
+
+    const headers: Record<string, string> = {};
     if (typeof req.autoCommit === "boolean") {
       headers["Kafka-Enable-Auto-Commit"] = req.autoCommit.toString();
     }
@@ -286,18 +277,11 @@ export class Consumer {
       headers["Kafka-Auto-Offset-Reset"] = req.autoOffsetReset;
     }
 
-    const res = await fetch(
-      `${this.url}/consume/${req.consumerGroupId}/${req.instanceId}`,
-      {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers,
-      },
-    );
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
-    }
-    return (await res.json()) as Message[];
+    return await this.client.post<Message[]>({
+      path: ["consume", req.consumerGroupId, req.instanceId],
+      headers,
+      body,
+    });
   }
 
   /**
@@ -339,19 +323,10 @@ export class Consumer {
    *  ```
    */
   public async commit(req: CommitRequest): Promise<void> {
-    const res = await fetch(
-      `${this.url}/commit/${req.consumerGroupId}/${req.instanceId}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: this.authorization,
-        },
-        body: JSON.stringify(req.offset),
-      },
-    );
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
-    }
+    return await this.client.post({
+      path: ["commit", req.consumerGroupId, req.instanceId],
+      body: req.offset,
+    });
   }
 
   /**
@@ -370,22 +345,12 @@ export class Consumer {
    *    })
    *  ```
    */
-  public async commited(
+  public async committed(
     req: CommittedRequest,
   ): Promise<TopicPartitionOffset[]> {
-    const res = await fetch(
-      `${this.url}/committed/${req.consumerGroupId}/${req.instanceId}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: this.authorization,
-        },
-        body: JSON.stringify(req.topicPartitions),
-      },
-    );
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
-    }
-    return (await res.json()) as TopicPartitionOffset[];
+    return await this.client.post<TopicPartitionOffset[]>({
+      path: ["committed", req.consumerGroupId, req.instanceId],
+      body: req.topicPartitions,
+    });
   }
 }

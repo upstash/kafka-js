@@ -1,0 +1,84 @@
+{
+  "scriptId": "4",
+  "url": "deno:core/01_core.js",
+  "functions": [
+    {
+      "functionName": "setPromise",
+      "ranges": [
+        { "startOffset": 1413, "endOffset": 1791, "count": 14 },
+        { "startOffset": 1602, "endOffset": 1720, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getPromise",
+      "ranges": [
+        { "startOffset": 1795, "endOffset": 2272, "count": 14 },
+        { "startOffset": 1964, "endOffset": 2104, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "newPromise",
+      "ranges": [{ "startOffset": 2276, "endOffset": 2523, "count": 14 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2357, "endOffset": 2437, "count": 14 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opresolve",
+      "ranges": [{ "startOffset": 2741, "endOffset": 2972, "count": 14 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unwrapOpResult",
+      "ranges": [
+        { "startOffset": 3347, "endOffset": 4119, "count": 46 },
+        { "startOffset": 3463, "endOffset": 3480, "count": 31 },
+        { "startOffset": 3482, "endOffset": 4099, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opAsync",
+      "ranges": [
+        { "startOffset": 4123, "endOffset": 4598, "count": 14 },
+        { "startOffset": 4363, "endOffset": 4397, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opSync",
+      "ranges": [{ "startOffset": 4602, "endOffset": 4726, "count": 32 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "resources",
+      "ranges": [{ "startOffset": 4730, "endOffset": 4810, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "read",
+      "ranges": [{ "startOffset": 4814, "endOffset": 4884, "count": 8 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tryClose",
+      "ranges": [{ "startOffset": 5094, "endOffset": 5155, "count": 10 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "metrics",
+      "ranges": [{ "startOffset": 5239, "endOffset": 5485, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 5408, "endOffset": 5450, "count": 544 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

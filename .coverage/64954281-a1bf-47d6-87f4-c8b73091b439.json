@@ -1,0 +1,26 @@
+{
+  "scriptId": "81",
+  "url": "file:///Users/andreas/github/chronark/upstash-kafka/pkg/test_setup.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 3716, "count": 1 },
+        { "startOffset": 98, "endOffset": 144, "count": 0 },
+        { "startOffset": 222, "endOffset": 273, "count": 0 },
+        { "startOffset": 351, "endOffset": 402, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 496, "endOffset": 600, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "clearInstances",
+      "ranges": [{ "startOffset": 633, "endOffset": 897, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}
