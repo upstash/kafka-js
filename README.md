@@ -159,3 +159,23 @@ const messages = await c.fetch({
 There is a minimal working example application available in
 [/example](https://github.com/chronark/upstash-kafka/tree/main/example) as well
 as various examples in the docstrings of each method.
+
+# Contributing
+
+## Setup
+
+1. Create a kafka instance on kafka
+2. Create the following topics: `blue`, `red`, `green`
+3. Create `.env` file with your kafka secrets
+
+## Running tests
+
+```bash
+make test
+```
+
+## Building for node
+
+```bash
+make build
+```

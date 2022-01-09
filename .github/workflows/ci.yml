@@ -21,8 +21,9 @@ jobs:
       - name: Run linter
         run: deno lint
 
+      - run: touch .env
       - name: Run tests
-        run: deno test -A --unstable
+        run: make test
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
@@ -48,6 +49,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - run: touch .env
 
       - name: Test
         run: make build

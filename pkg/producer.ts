@@ -1,18 +1,62 @@
-import { UpstashError } from "./error.ts";
-import {
-  ErrorResponse,
-  ProduceOptions,
-  ProduceRequest,
-  ProduceResponse,
-} from "./types.ts";
+import { HttpClient } from "./http.ts";
+
+/**
+ * Optional parameters for each produced message
+ */
+export type ProduceOptions = {
+  /**
+   * The partition to produce to.
+   * Will be assigned by kafka if left empty.
+   */
+  partition?: number;
+
+  /**
+   * The unix timestamp in seconds.
+   * Will be assigned by kafka if left empty.
+   */
+  timestamp?: number;
+
+  /**
+   * Events with the same event key (e.g., a customer or vehicle ID) are written
+   * to the same partition, and Kafka guarantees that any consumer of a given
+   * topic-partition will always read that partition's events in exactly the
+   * same order as they were written.
+   */
+  key?: string;
+
+  headers?: { key: string; value: string }[];
+};
+
+/**
+ * Request payload to produce a message to a topic.
+ */
+export type ProduceRequest = ProduceOptions & {
+  /**
+   * The topic where the message gets publish.
+   * Make sure this exists in upstash before. Otherwise it will throw an error.
+   */
+  topic: string;
+  /**
+   * The message itself. This will be serialized using `JSON.stringify`
+   */
+  value: unknown;
+};
+
+/**
+ * Response for each successfull message produced
+ */
+export type ProduceResponse = {
+  topic: string;
+  partition: number;
+  offset: number;
+  timestamp: number;
+};
 
 export class Producer {
-  private readonly url: string;
-  private readonly authorization: string;
+  private readonly client: HttpClient;
 
-  constructor(url: string, authoriztation: string) {
-    this.url = url;
-    this.authorization = authoriztation;
+  constructor(client: HttpClient) {
+    this.client = client;
   }
   /**
    * Produce a single message to a single topic
@@ -28,18 +72,12 @@ export class Producer {
       ...opts,
     };
 
-    const res = await fetch(`${this.url}/produce`, {
-      method: "POST",
-      headers: {
-        Authorization: this.authorization,
-      },
-      body: JSON.stringify(request),
+    const res = await this.client.post<ProduceResponse[]>({
+      path: ["produce"],
+      body: request,
     });
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
-    }
-    const json = (await res.json()) as ProduceResponse[];
-    return json[0];
+
+    return res[0];
   }
 
   /**
@@ -50,17 +88,9 @@ export class Producer {
   public async produceMany(
     requests: ProduceRequest[],
   ): Promise<ProduceResponse[]> {
-    const res = await fetch(`${this.url}/produce`, {
-      method: "POST",
-      headers: {
-        Authorization: this.authorization,
-      },
-      body: JSON.stringify(requests),
+    return await this.client.post<ProduceResponse[]>({
+      path: ["produce"],
+      body: requests,
     });
-    if (!res.ok) {
-      throw new UpstashError((await res.json()) as ErrorResponse);
-    }
-
-    return (await res.json()) as ProduceResponse[];
   }
 }

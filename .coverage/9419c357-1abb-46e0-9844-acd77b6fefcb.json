@@ -1,0 +1,101 @@
+{
+  "scriptId": "8",
+  "url": "deno:ext/console/02_console.js",
+  "functions": [
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 52078, "endOffset": 59583, "count": 1 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Console",
+      "ranges": [{ "startOffset": 52135, "endOffset": 52825, "count": 1 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "log",
+      "ranges": [{ "startOffset": 52837, "endOffset": 53029, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "debug",
+      "ranges": [{ "startOffset": 53044, "endOffset": 53236, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "info",
+      "ranges": [{ "startOffset": 53250, "endOffset": 53442, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dir",
+      "ranges": [{ "startOffset": 53455, "endOffset": 53632, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "warn",
+      "ranges": [{ "startOffset": 53670, "endOffset": 53862, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "error",
+      "ranges": [{ "startOffset": 53877, "endOffset": 54069, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assert",
+      "ranges": [{ "startOffset": 54085, "endOffset": 54477, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "count",
+      "ranges": [{ "startOffset": 54492, "endOffset": 54851, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "countReset",
+      "ranges": [{ "startOffset": 54871, "endOffset": 55103, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "table",
+      "ranges": [{ "startOffset": 55118, "endOffset": 57858, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "time",
+      "ranges": [{ "startOffset": 57872, "endOffset": 58108, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "timeLog",
+      "ranges": [{ "startOffset": 58125, "endOffset": 58479, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "timeEnd",
+      "ranges": [{ "startOffset": 58496, "endOffset": 58875, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "group",
+      "ranges": [{ "startOffset": 58890, "endOffset": 59006, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "groupEnd",
+      "ranges": [{ "startOffset": 59058, "endOffset": 59144, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "clear",
+      "ranges": [{ "startOffset": 59159, "endOffset": 59286, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "trace",
+      "ranges": [{ "startOffset": 59301, "endOffset": 59583, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "scriptId": "16",
+  "url": "deno:ext/web/03_abort_signal.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 1038, "endOffset": 1249, "count": 12 },
+        { "startOffset": 1081, "endOffset": 1106, "count": 0 },
+        { "startOffset": 1144, "endOffset": 1191, "count": 4 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1722, "endOffset": 1824, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "AbortSignal",
+      "ranges": [
+        { "startOffset": 1830, "endOffset": 2088, "count": 4 },
+        { "startOffset": 1896, "endOffset": 1958, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "get aborted",
+      "ranges": [{ "startOffset": 2094, "endOffset": 2208, "count": 20 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "newSignal",
+      "ranges": [{ "startOffset": 3117, "endOffset": 3194, "count": 4 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

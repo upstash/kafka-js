@@ -12,7 +12,14 @@ build:
 	
 
 test:
-	deno test --allow-all
+	rm -rf coverage || true
+	deno run --allow-all ./cmd/removeConsumerGroups.ts
+	deno test --allow-all --unstable --coverage=coverage
+	deno coverage coverage --lcov > coverage/lcov.info
+	deno coverage coverage
+
+
+
 
 node_example:
 	npm --prefix=example install

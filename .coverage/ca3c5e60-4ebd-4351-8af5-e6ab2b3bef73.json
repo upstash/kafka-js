@@ -1,0 +1,48 @@
+{
+  "scriptId": "88",
+  "url": "file:///Users/andreas/github/chronark/upstash-kafka/pkg/consumer.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 23138, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 71, "endOffset": 93, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Consumer",
+      "ranges": [{ "startOffset": 99, "endOffset": 208, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "fetch",
+      "ranges": [{ "startOffset": 213, "endOffset": 1250, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "consume",
+      "ranges": [
+        { "startOffset": 1255, "endOffset": 2390, "count": 2 },
+        { "startOffset": 1389, "endOffset": 1452, "count": 0 },
+        { "startOffset": 1498, "endOffset": 1549, "count": 0 },
+        { "startOffset": 1683, "endOffset": 1771, "count": 0 },
+        { "startOffset": 1828, "endOffset": 1926, "count": 0 },
+        { "startOffset": 2282, "endOffset": 2349, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "commit",
+      "ranges": [{ "startOffset": 2395, "endOffset": 2781, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "committed",
+      "ranges": [{ "startOffset": 2786, "endOffset": 3221, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

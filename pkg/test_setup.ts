@@ -1,21 +1,8 @@
 import { Kafka } from "./kafka.ts";
-const url = Deno.env.get("UPSTASH_KAFKA_REST_URL");
-if (!url) {
-  throw new Error("Could not find url");
-}
-const username = Deno.env.get("UPSTASH_KAFKA_REST_USERNAME");
-if (!username) {
-  throw new Error("Could not find username");
-}
-const password = Deno.env.get("UPSTASH_KAFKA_REST_PASSWORD");
-if (!password) {
-  throw new Error("Could not find password");
-}
-
 export const kafka = new Kafka({
-  url,
-  username,
-  password,
+  url: Deno.env.get("UPSTASH_KAFKA_REST_URL")!,
+  username: Deno.env.get("UPSTASH_KAFKA_REST_USERNAME")!,
+  password: Deno.env.get("UPSTASH_KAFKA_REST_PASSWORD")!,
 });
 
 export enum Topic {
@@ -24,14 +11,6 @@ export enum Topic {
   RED = "red",
 }
 
-export async function clearInstances(): Promise<void> {
-  const a = kafka.admin();
-  const existingConsumers = await a.consumers();
-  await Promise.all(
-    existingConsumers.flatMap((group) =>
-      group.instances.map((instance) =>
-        a.removeConsumerInstance(group.name, instance.name)
-      )
-    ),
-  );
-}
+export const randomString = (prefix: string): string => {
+  return `${prefix}_${(Math.random() * 1_000_000_000).toFixed(0)}`;
+};
