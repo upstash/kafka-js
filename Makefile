@@ -21,9 +21,9 @@ test:
 
 
 
-node_example:
+run-example:
 	npm --prefix=example install
-	npx ts-node ./example/main.ts
+	example/node_modules/.bin/esbuild --platform=node --bundle --target=node14 ./example/main.ts | node
 
 fmt:
 	deno fmt

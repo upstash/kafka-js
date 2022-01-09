@@ -164,9 +164,11 @@ as various examples in the docstrings of each method.
 
 ## Setup
 
-1. Create a kafka instance on kafka
+1. Create a kafka instance on upstash
+   [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
 2. Create the following topics: `blue`, `red`, `green`
-3. Create `.env` file with your kafka secrets
+   [docs](https://docs.upstash.com/kafka#create-a-topic)
+3. Create `.env` file with your kafka secrets `cp .env.example .env`
 
 ## Running tests
 
@@ -178,4 +180,16 @@ make test
 
 ```bash
 make build
+```
+
+A `/npm` folder will be created with the built node module. As part of the build
+process the tests are run against your installed node version. To disable this,
+you can configure the build pipeline in `/cmd/build.ts`
+
+```typescript
+// ...
+await build({
+  test: false, // <-- add this
+  // ... remaining config
+});
 ```
