@@ -1,10 +1,26 @@
 import { build } from "https://deno.land/x/dnt@0.14.0/mod.ts";
 await build({
+  cjs: false, // node-fetch requirement
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
   shims: {
     deno: true,
-    undici: true,
+    custom: [
+      {
+        package: {
+          name: "node-fetch",
+          version: "~3.1.0",
+        },
+        globalNames: [
+          {
+            // for the `fetch` global...
+            name: "fetch",
+            // use the default export of node-fetch
+            exportName: "default",
+          },
+        ],
+      },
+    ],
   },
   package: {
     // package.json properties

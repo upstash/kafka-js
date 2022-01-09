@@ -4,26 +4,30 @@ Serverless kafka client for upstash
 
 [![codecov](https://codecov.io/gh/chronark/upstash-kafka/branch/main/graph/badge.svg?token=BBJ1FCHPF0)](https://codecov.io/gh/chronark/upstash-kafka)
 
-# Requirements
-
-- `node`: 16.x
-
 This project is written using the [deno](https://deno.land/) runtime and then
 transpiled to node and published as a package on npm.
 
+# Requirements
+
+Either deno 1.x or node 14.x and higher
+
 # Installation
+
+## Deno
+
+```
+import { Kafka } from "https://deno.land/x/upstash_kafka/mod.ts"
+```
+
+## Node
 
 ```bash
 npm install @chronark/upstash-kafka
 ```
 
-Or
-
 ```bash
 yarn add @chronark/upstash-kafka
 ```
-
-Or
 
 ```bash
 pnpm add @chronark/upstash-kafka
