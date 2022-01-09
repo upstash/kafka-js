@@ -25,6 +25,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - run: touch .env
 
       - name: Build
         run: 	deno run --allow-all ./cmd/build.ts ${{ env.VERSION }}

@@ -21,6 +21,7 @@ jobs:
       - name: Run linter
         run: deno lint
 
+      - run: touch .env
       - name: Run tests
         run: make test
         env:
@@ -48,6 +49,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - run: touch .env
 
       - name: Test
         run: make build
