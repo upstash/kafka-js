@@ -44,9 +44,9 @@ export class Kafka {
   constructor(config: KafkaConfig) {
     this.client = new HttpClient({
       baseUrl: config.url,
-      headers: new Headers({
+      headers: {
         authorization: `Basic ${btoa(`${config.username}:${config.password}`)}`,
-      }),
+      },
     });
   }
   /**

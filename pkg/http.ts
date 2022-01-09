@@ -13,32 +13,30 @@ export type Request = {
 };
 
 export type HttpClientConfig = {
-  headers: Headers;
+  headers?: Record<string, string>;
   baseUrl: string;
 };
 type ErrorResponse = { result: string; error: string; status: number };
 
 export class HttpClient {
   public readonly baseUrl: string;
-  public readonly headers: Headers;
+  public readonly headers: Record<string, string>;
 
   public constructor(config: HttpClientConfig) {
     this.baseUrl = config.baseUrl.replace(/\/$/, "");
 
-    this.headers = new Headers(config.headers);
+    this.headers = config.headers ?? {};
   }
 
   private async request<TResponse>(
     method: "GET" | "POST" | "PUT" | "DELETE",
     req: Request,
   ): Promise<TResponse> {
-    const headers = new Headers({ "Content-Type": "application/json" });
-    for (const [k, v] of this.headers) {
-      headers.set(k, v);
-    }
-    for (const [k, v] of Object.entries(req.headers ?? {})) {
-      headers.set(k, v);
-    }
+    const headers = {
+      "Content-Type": "application/json",
+      ...this.headers,
+      ...req.headers,
+    };
 
     let err = new Error();
     for (let attempt = 0; attempt <= (req.retries ?? 5); attempt++) {

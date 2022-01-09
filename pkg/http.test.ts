@@ -6,7 +6,6 @@ Deno.test({
     await t.step("remove trailing slash from urls", () => {
       const client = new HttpClient({
         baseUrl: "https://example.com/",
-        headers: new Headers(),
       });
 
       assertEquals(client.baseUrl, "https://example.com");
