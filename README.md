@@ -6,11 +6,10 @@ Serverless kafka client for upstash
 
 # Requirements
 
-- `node`: >= 16
+- `node`: 16.x
 
 This project is written using the [deno](https://deno.land/) runtime and then
-transpiled to node and published as a package on npm. The transpiled code uses
-deno shims that require node >= 16.
+transpiled to node and published as a package on npm.
 
 # Installation
 
@@ -110,9 +109,9 @@ While `consume` can handle committing automatically, you can also use
 `Consumer.commit` to manually commit.
 
 ```typescript
-const consumerGroupId = "mygroup"
-const instanceId = "myinstance"
-const topic = "my.topic"
+const consumerGroupId = "mygroup";
+const instanceId = "myinstance";
+const topic = "my.topic";
 
 const c = kafka.consumer();
 const messages = await c.consume({
@@ -122,9 +121,7 @@ const messages = await c.consume({
   autoCommit: false
 });
 
-
 for (const message of messages) {
-
   // message handling logic
 
   await c.commit({
