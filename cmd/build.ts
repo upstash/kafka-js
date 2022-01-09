@@ -20,6 +20,8 @@ await build({
           },
         ],
       },
+      // Required for btoa polyfill in node14
+
       {
         package: { name: "btoa", version: "1.2.1" },
         globalNames: [{ name: "btoa", exportName: "default" }],
@@ -27,6 +29,7 @@ await build({
     ],
   },
   package: {
+    // Required for btoa polyfill in node14
     devDependencies: {
       "@types/btoa": "1.2.3",
     },
