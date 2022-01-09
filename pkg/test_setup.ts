@@ -19,11 +19,9 @@ export const kafka = new Kafka({
 });
 
 export enum Topic {
-  TEST = "test.topic",
   GREEN = "green",
   BLUE = "blue",
   RED = "red",
-  PURPLE = "purple",
 }
 
 export async function clearInstances(): Promise<void> {

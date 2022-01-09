@@ -9,7 +9,7 @@ Deno.test("Publish a single message succesfully", async () => {
   const message = { hello: "test" };
   const header = { key: "signature", value: "abcd" };
 
-  const { partition, offset, topic } = await p.produce(Topic.TEST, message, {
+  const { partition, offset, topic } = await p.produce(Topic.RED, message, {
     headers: [header],
   });
 
@@ -37,7 +37,7 @@ Deno.test({
         value: JSON.stringify(message0),
       },
       {
-        topic: Topic.PURPLE,
+        topic: Topic.GREEN,
         value: JSON.stringify(message1),
       },
     ]);

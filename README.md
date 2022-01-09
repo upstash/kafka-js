@@ -110,21 +110,19 @@ While `consume` can handle committing automatically, you can also use
 `Consumer.commit` to manually commit.
 
 ```typescript
-const consumerGroupId = "mygroup"
-const instanceId = "myinstance"
-const topic = "my.topic"
+const consumerGroupId = "mygroup";
+const instanceId = "myinstance";
+const topic = "my.topic";
 
 const c = kafka.consumer();
 const messages = await c.consume({
   consumerGroupId,
   instanceId,
   topics: [topic],
-  autoCommit: false
+  autoCommit: false,
 });
 
-
 for (const message of messages) {
-
   // message handling logic
 
   await c.commit({
