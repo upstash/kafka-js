@@ -1,6 +1,7 @@
 # upstash-kafka
 
-Serverless kafka client for upstash
+An HTTP/REST based Kafka client built on top of [Upstash REST API](https://docs.upstash.com/kafka/rest).
+
 
 [![codecov](https://codecov.io/gh/chronark/upstash-kafka/branch/main/graph/badge.svg?token=BBJ1FCHPF0)](https://codecov.io/gh/chronark/upstash-kafka)
 
