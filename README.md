@@ -164,10 +164,12 @@ as various examples in the docstrings of each method.
 
 ## Setup
 
-1. Create a kafka instance on upstash
-   [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
-2. Create the following topics: `blue`, `red`, `green`
-   [docs](https://docs.upstash.com/kafka#create-a-topic)
+0. [Install Deno](https://deno.land/#installation)
+
+1. Create a kafka instance on upstash. [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
+2. Create the following topics: `blue`, `red`, `green`. [docs](https://docs.upstash.com/kafka#create-a-topic)
+   
+   The partitions or retention settings don't matter at this time.
 3. Create `.env` file with your kafka secrets `cp .env.example .env`
 
 ## Running tests
