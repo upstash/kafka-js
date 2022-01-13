@@ -1,7 +1,7 @@
 # upstash-kafka
 
-An HTTP/REST based Kafka client built on top of [Upstash REST API](https://docs.upstash.com/kafka/rest).
-
+An HTTP/REST based Kafka client built on top of
+[Upstash REST API](https://docs.upstash.com/kafka/rest).
 
 [![codecov](https://codecov.io/gh/chronark/upstash-kafka/branch/main/graph/badge.svg?token=BBJ1FCHPF0)](https://codecov.io/gh/chronark/upstash-kafka)
 
@@ -167,9 +167,11 @@ as various examples in the docstrings of each method.
 
 0. [Install Deno](https://deno.land/#installation)
 
-1. Create a kafka instance on upstash. [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
-2. Create the following topics: `blue`, `red`, `green`. [docs](https://docs.upstash.com/kafka#create-a-topic)
-   
+1. Create a kafka instance on upstash.
+   [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
+2. Create the following topics: `blue`, `red`, `green`.
+   [docs](https://docs.upstash.com/kafka#create-a-topic)
+
    The partitions or retention settings don't matter at this time.
 3. Create `.env` file with your kafka secrets `cp .env.example .env`
 
