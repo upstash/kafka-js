@@ -183,6 +183,15 @@ make test
 
 ## Building for node
 
+Following command builds the node package with the specified version:
+
+```bash
+make build version=v1.x.y
+```
+
+Alternatively, if `version` argument is omitted, the most recent git tag is used
+as the package version.
+
 ```bash
 make build
 ```
