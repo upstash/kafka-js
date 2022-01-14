@@ -34,17 +34,17 @@ await build({
       "@types/btoa": "1.2.3",
     },
     // package.json properties
-    name: "@chronark/upstash-kafka",
+    name: "@upstash/kafka",
     version: Deno.args[0],
-    description: "Serverless kafka client for upstash",
+    description: "Serverless Kafka client for Upstash",
     keywords: ["upstash", "kafka", "serverless", "deno", "rest", "api"],
     license: "MIT",
     repository: {
       type: "git",
-      url: "git+https://github.com/chronark/upstash-kafka.git",
+      url: "git+https://github.com/upstash/upstash-kafka.git",
     },
     bugs: {
-      url: "https://github.com/chronark/upstash-kafka/issues",
+      url: "https://github.com/upstash/upstash-kafka/issues",
     },
   },
 });
