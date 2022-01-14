@@ -1,4 +1,5 @@
 import { build } from "https://deno.land/x/dnt/mod.ts";
+
 await build({
   cjs: false, // node-fetch requirement
   entryPoints: ["./mod.ts"],
@@ -29,22 +30,29 @@ await build({
     ],
   },
   package: {
-    // Required for btoa polyfill in node14
-    devDependencies: {
-      "@types/btoa": "1.2.3",
-    },
     // package.json properties
     name: "@upstash/kafka",
     version: Deno.args[0],
-    description: "Serverless Kafka client for Upstash",
-    keywords: ["upstash", "kafka", "serverless", "deno", "rest", "api"],
+    description: "An HTTP/REST based Kafka client built on top of Upstash REST API.",
     license: "MIT",
+    keywords: ["upstash", "kafka", "serverless", "deno", "rest", "api"],
+    engines: {
+      node: ">=10"
+    },
     repository: {
       type: "git",
       url: "git+https://github.com/upstash/upstash-kafka.git",
     },
     bugs: {
       url: "https://github.com/upstash/upstash-kafka/issues",
+    },
+    homepage: "https://github.com/upstash/upstash-kafka#readme",
+    directories: {
+      example: "example",
+    },
+    // Required for btoa polyfill in node14
+    devDependencies: {
+      "@types/btoa": "1.2.3",
     },
   },
 });
