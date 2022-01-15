@@ -2,8 +2,7 @@ name: Report coverage
 
 on:
   push:
-    branches: [ main ]
-
+    branches: [main]
 
 jobs:
   collect-coverage:
@@ -33,4 +32,3 @@ jobs:
           files: ./coverage.lcov
           fail_ci_if_error: true
           verbose: true
-      

@@ -1,82 +1,68 @@
-import {
-  assertArrayIncludes,
-  assertEquals,
-} from "https://deno.land/std@0.120.0/testing/asserts.ts";
-import { kafka, Topic } from "./test_setup.ts";
+import { kafka, Topic } from "./test_setup"
+import { it, expect } from "@jest/globals"
 
-Deno.test({
-  name: "produce()",
-  fn: async (t) => {
-    await t.step("Publish a single message succesfully", async () => {
-      const p = kafka.producer();
-      const c = kafka.consumer();
-      const message = { hello: "test" };
-      const header = { key: "signature", value: "abcd" };
+it("publishes a single message succesfully", async () => {
+  const p = kafka.producer()
+  const c = kafka.consumer()
+  const message = { hello: "test" }
+  const header = { key: "signature", value: "abcd" }
 
-      const { partition, offset, topic } = await p.produce(Topic.RED, message, {
-        headers: [header],
-      });
+  const { partition, offset, topic } = await p.produce(Topic.RED, message, {
+    headers: [header],
+  })
 
-      const found = await c.fetch({
-        topic,
-        partition,
-        offset,
-      });
-      assertEquals(JSON.parse(found[0].value), message);
-      assertEquals(found[0].headers[0], header);
-    });
-    await t.step("Publish a serialized succesfully", async () => {
-      const p = kafka.producer();
-      const c = kafka.consumer();
-      const message = "hello world";
-      const header = { key: "signature", value: "abcd" };
+  const found = await c.fetch({
+    topic,
+    partition,
+    offset,
+  })
+  expect(JSON.parse(found[0].value)).toEqual(message)
+  expect(found[0].headers[0]).toEqual(header)
+})
+it("Publish a serialized succesfully", async () => {
+  const p = kafka.producer()
+  const c = kafka.consumer()
+  const message = "hello world"
+  const header = { key: "signature", value: "abcd" }
 
-      const { partition, offset, topic } = await p.produce(Topic.RED, message, {
-        headers: [header],
-      });
+  const { partition, offset, topic } = await p.produce(Topic.RED, message, {
+    headers: [header],
+  })
 
-      const found = await c.fetch({
-        topic,
-        partition,
-        offset,
-      });
-      assertEquals(found[0].value, message);
-      assertEquals(found[0].headers[0], header);
-    });
+  const found = await c.fetch({
+    topic,
+    partition,
+    offset,
+  })
+  expect(found[0].value).toEqual(message)
+  expect(found[0].headers[0]).toEqual(header)
+})
 
-    await t.step({
-      name: "Publish multiple messages to different topics succesfully",
+it("publishes multiple messages to different topics succesfully", async () => {
+  const p = kafka.producer()
+  const c = kafka.consumer()
+  const message0 = { hello: "test" }
+  const message1 = { hello: "world" }
 
-      fn: async () => {
-        const p = kafka.producer();
-        const c = kafka.consumer();
-        const message0 = { hello: "test" };
-        const message1 = { hello: "world" };
+  const res = await p.produceMany([
+    {
+      topic: Topic.RED,
+      value: JSON.stringify(message0),
+    },
+    {
+      topic: Topic.GREEN,
+      value: JSON.stringify(message1),
+    },
+  ])
 
-        const res = await p.produceMany([
-          {
-            topic: Topic.RED,
-            value: JSON.stringify(message0),
-          },
-          {
-            topic: Topic.GREEN,
-            value: JSON.stringify(message1),
-          },
-        ]);
+  const found = await c.fetch({
+    topicPartitionOffsets: res.map((r) => ({
+      topic: r.topic,
+      partition: r.partition,
+      offset: r.offset,
+    })),
+  })
 
-        const found = await c.fetch({
-          topicPartitionOffsets: res.map((r) => ({
-            topic: r.topic,
-            partition: r.partition,
-            offset: r.offset,
-          })),
-        });
-
-        assertArrayIncludes(
-          found.map((f) => JSON.parse(f.value)),
-          [message0, message1],
-        );
-      },
-    });
-  },
-});
+  expect(found.map((f) => JSON.parse(f.value))).toContainEqual(message0)
+  expect(found.map((f) => JSON.parse(f.value))).toContainEqual(message1)
+})

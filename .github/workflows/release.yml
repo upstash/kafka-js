@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-        
+
       - name: Set env
         run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
@@ -28,7 +28,7 @@ jobs:
       - run: touch .env
 
       - name: Build
-        run: 	deno run --allow-all ./cmd/build.ts ${{ env.VERSION }}
+        run: deno run --allow-all ./cmd/build.ts ${{ env.VERSION }}
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
