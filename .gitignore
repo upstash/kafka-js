@@ -6,3 +6,4 @@ coverage
 !.env.example
 .pnpm-debug.log
 dist/
+.idea/

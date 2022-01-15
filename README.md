@@ -4,37 +4,22 @@ An HTTP/REST based Kafka client built on top of
 [Upstash REST API](https://docs.upstash.com/kafka/rest).
 
 [![codecov](https://codecov.io/gh/chronark/upstash-kafka/branch/main/graph/badge.svg?token=BBJ1FCHPF0)](https://codecov.io/gh/chronark/upstash-kafka)
-
-This project is written using the [deno](https://deno.land/) runtime and then
-transpiled to node and published as a package on npm.
-
-# Requirements
-
-Either deno 1.x or node 14.x and higher
+![npm (scoped)](https://img.shields.io/npm/v/@upstash/kafka)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@upstash/kafka)
 
 # Installation
+
+## Node
+
+```bash
+npm install @upstash/kafka
+```
 
 ## Deno
 
 ```
 import { Kafka } from "https://deno.land/x/upstash_kafka/mod.ts"
 ```
-
-## Node
-
-```bash
-npm install @chronark/upstash-kafka
-```
-
-```bash
-yarn add @chronark/upstash-kafka
-```
-
-```bash
-pnpm add @chronark/upstash-kafka
-```
-
-You get the idea.
 
 # Quickstart
 
@@ -44,7 +29,7 @@ You get the idea.
 2. Copy the `REST API` secrets at the bottom of the page
 
 ```typescript
-import { Kafka } from "@chronark/upstash-kafka"
+import { Kafka } from "@upstash/kafka"
 
 const kafka = new Kafka({
   url: "<UPSTASH_KAFKA_REST_URL>",
@@ -106,7 +91,7 @@ const messages = await c.consume({
 ```
 
 More examples can be found in the
-[docstring](https://github.com/chronark/upstash-kafka/blob/main/pkg/consumer.ts#L265)
+[docstring](https://github.com/upstash/upstash-kafka/blob/main/pkg/consumer.ts#L265)
 
 ## Commit manually
 
@@ -158,10 +143,17 @@ const messages = await c.fetch({
 ## Examples
 
 There is a minimal working example application available in
-[/example](https://github.com/chronark/upstash-kafka/tree/main/example) as well
+[/example](https://github.com/upstash/upstash-kafka/tree/main/example) as well
 as various examples in the docstrings of each method.
 
 # Contributing
+
+This project is written using the [deno](https://deno.land/) runtime and then
+transpiled to node and published as a package on npm.
+
+# Requirements
+
+Either deno 1.x or node 14.x and higher
 
 ## Setup
 
@@ -187,7 +179,7 @@ make test
 Following command builds the node package with the specified version:
 
 ```bash
-make build version=v1.x.y
+make build version=1.x.y
 ```
 
 Alternatively, if `version` argument is omitted, the most recent git tag is used

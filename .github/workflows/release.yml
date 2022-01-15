@@ -25,17 +25,11 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
-      - run: touch .env
 
       - name: Build
-        run: deno run --allow-all ./cmd/build.ts ${{ env.VERSION }}
-        env:
-          UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
-          UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
-          UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
+        run: pnpm build
       - name: Publish
         run: |
-          cd npm
           echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
           npm publish
         env:
