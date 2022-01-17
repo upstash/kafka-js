@@ -1,10 +1,9 @@
 {
   "name": "@upstash/kafka",
-  "version": "1.0.0",
-  "engines": {
-    "node": ">=10"
-  },
   "description": "An HTTP/REST based Kafka client built on top of Upstash REST API.",
+  "version": "1.0.0",
+  "author": "Andreas Thomas <andreas.thomas@chronark.com>",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -21,25 +20,8 @@
     "lint": "eslint --ext .ts --fix .",
     "build": "tsup ./pkg/index.ts --format=cjs,esm --dts --clean --splitting"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/upstash/upstash-kafka.git"
-  },
-  "keywords": [
-    "kafka",
-    "database",
-    "serverless",
-    "edge",
-    "upstash"
-  ],
-  "author": "Andreas Thomas <andreas.thomas@chronark.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/upstash/upstash-kafka/issues"
-  },
-  "homepage": "https://github.com/upstash/upstash-kafka#readme",
-  "directories": {
-    "example": "examples"
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",
@@ -57,7 +39,25 @@
     "tsup": "^5.11.11",
     "typescript": "^4.5.4"
   },
-  "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
-  }
+  "directories": {
+    "example": "example"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/upstash/upstash-kafka.git"
+  },
+  "keywords": [
+    "kafka",
+    "database",
+    "serverless",
+    "edge",
+    "upstash"
+  ],
+  "bugs": {
+    "url": "https://github.com/upstash/upstash-kafka/issues"
+  },
+  "homepage": "https://github.com/upstash/upstash-kafka#readme"
 }
