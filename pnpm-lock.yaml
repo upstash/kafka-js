@@ -2,7 +2,6 @@ lockfileVersion: 5.3
 
 specifiers:
   "@jest/globals": ^27.4.6
-  "@size-limit/preset-small-lib": ^7.0.5
   "@types/jest": ^27.4.0
   "@types/node": ^17.0.8
   "@typescript-eslint/eslint-plugin": ^5.9.1
@@ -14,8 +13,6 @@ specifiers:
   isomorphic-fetch: ^3.0.0
   jest: ^27.4.7
   prettier: ^2.5.1
-  rimraf: ^3.0.2
-  size-limit: ^7.0.5
   ts-jest: ^27.1.3
   tsup: ^5.11.11
   typescript: ^4.5.4
@@ -25,7 +22,6 @@ dependencies:
 
 devDependencies:
   "@jest/globals": 27.4.6
-  "@size-limit/preset-small-lib": 7.0.5_size-limit@7.0.5
   "@types/jest": 27.4.0
   "@types/node": 17.0.8
   "@typescript-eslint/eslint-plugin": 5.9.1_b7b2e42b32ee097737cd3e626b10847b
@@ -36,8 +32,6 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_1c588f61426b1faf18812943f1678311
   jest: 27.4.7
   prettier: 2.5.1
-  rimraf: 3.0.2
-  size-limit: 7.0.5
   ts-jest: 27.1.3_9364f2ad0b7b67f00a4d081c662c6871
   tsup: 5.11.11_typescript@4.5.4
   typescript: 4.5.4
@@ -809,46 +803,6 @@ packages:
       "@sinonjs/commons": 1.8.3
     dev: true
 
-  /@size-limit/esbuild/7.0.5_size-limit@7.0.5:
-    resolution:
-      {
-        integrity: sha512-ec/XfgTHcfXFflEDgs83gs3XMfB8sn4BISZM7CPHCS72tNkcjVwNRxrKWisb11JZ2kN4glBgCmsXZpoSaEGzXg==,
-      }
-    engines: { node: ^12.0.0 || ^14.0.0 || >=16.0.0 }
-    peerDependencies:
-      size-limit: 7.0.5
-    dependencies:
-      esbuild: 0.14.11
-      nanoid: 3.1.32
-      size-limit: 7.0.5
-    dev: true
-
-  /@size-limit/file/7.0.5_size-limit@7.0.5:
-    resolution:
-      {
-        integrity: sha512-DqyuUkmCSHwML6GVmeRr0v6Ih/P3pwmCu6RDWh2QxdDSec1ZnShmFUmcC6rLQDX7KW5aCjK3cs5FNd22Eaqapw==,
-      }
-    engines: { node: ^12.0.0 || ^14.0.0 || >=16.0.0 }
-    peerDependencies:
-      size-limit: 7.0.5
-    dependencies:
-      semver: 7.3.5
-      size-limit: 7.0.5
-    dev: true
-
-  /@size-limit/preset-small-lib/7.0.5_size-limit@7.0.5:
-    resolution:
-      {
-        integrity: sha512-cWwXDCx9BEpHIjbpHlhpS0JBt+J1U5LCaHHyBhAxevOX7W0aX7nCJwPUmd5liGHq9ui5VyWOtV3lhxce96Qd8A==,
-      }
-    peerDependencies:
-      size-limit: 7.0.5
-    dependencies:
-      "@size-limit/esbuild": 7.0.5_size-limit@7.0.5
-      "@size-limit/file": 7.0.5_size-limit@7.0.5
-      size-limit: 7.0.5
-    dev: true
-
   /@tootallnate/once/1.1.2:
     resolution:
       {
@@ -1493,14 +1447,6 @@ packages:
       esbuild: 0.14.11
     dev: true
 
-  /bytes-iec/3.1.1:
-    resolution:
-      {
-        integrity: sha512-fey6+4jDK7TFtFg/klGSvNKJctyU7n2aQdnM+CO0ruLPbqqMOM8Tio0Pc+deqUeVKX1tL5DQep1zQ7+37aTAsA==,
-      }
-    engines: { node: ">= 0.8" }
-    dev: true
-
   /cac/6.7.12:
     resolution:
       {
@@ -1593,13 +1539,6 @@ packages:
     resolution:
       {
         integrity: sha512-riT/3vI5YpVH6/qomlDnJow6TBee2PBKSEpx3O32EGPYbWGIRsIlGRms3Sm74wYE1JMo8RnO04Hb12+v1J5ICw==,
-      }
-    dev: true
-
-  /ci-job-number/1.2.2:
-    resolution:
-      {
-        integrity: sha512-CLOGsVDrVamzv8sXJGaILUVI6dsuAkouJP/n6t+OxLPeeA4DDby7zn9SB6EUpa1H7oIKoE+rMmkW80zYsFfUjA==,
       }
     dev: true
 
@@ -3784,15 +3723,6 @@ packages:
       }
     dev: true
 
-  /mkdirp/1.0.4:
-    resolution:
-      {
-        integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==,
-      }
-    engines: { node: ">=10" }
-    hasBin: true
-    dev: true
-
   /ms/2.1.2:
     resolution:
       {
@@ -3809,24 +3739,6 @@ packages:
       any-promise: 1.3.0
       object-assign: 4.1.1
       thenify-all: 1.6.0
-    dev: true
-
-  /nanoid/3.1.32:
-    resolution:
-      {
-        integrity: sha512-F8mf7R3iT9bvThBoW4tGXhXFHCctyCiUUPrWF8WaTqa3h96d9QybkSeba43XVOOE3oiLfkVDe4bT8MeGmkrTxw==,
-      }
-    engines: { node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1 }
-    hasBin: true
-    dev: true
-
-  /nanospinner/0.6.0:
-    resolution:
-      {
-        integrity: sha512-G2QQwVJListXbtsBW5r5kJs8WXybsO9/SQxzcvSmPRSIOQOeR0v/ETI9hncOna0tzWscdjjcCZUVCJoR4eJlag==,
-      }
-    dependencies:
-      picocolors: 1.0.0
     dev: true
 
   /natural-compare/1.4.0:
@@ -4332,24 +4244,6 @@ packages:
       {
         integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==,
       }
-    dev: true
-
-  /size-limit/7.0.5:
-    resolution:
-      {
-        integrity: sha512-dve+Vaq/a6H7QZhFbozAUBKNO9ZnZkPX3EF1ETI8yv3YCMdC7e63HmVZDXKB//o3FCTHqtZQ0p3ZtOwN/PSiqQ==,
-      }
-    engines: { node: ^12.0.0 || ^14.0.0 || >=16.0.0 }
-    hasBin: true
-    dependencies:
-      bytes-iec: 3.1.1
-      chokidar: 3.5.2
-      ci-job-number: 1.2.2
-      globby: 11.1.0
-      lilconfig: 2.0.4
-      mkdirp: 1.0.4
-      nanospinner: 0.6.0
-      picocolors: 1.0.0
     dev: true
 
   /slash/3.0.0:

@@ -2,16 +2,16 @@ name: Test
 on:
   pull_request:
     paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-      
+      - "README.md"
+      - "LICENSE"
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node: ["10", "12", "14", "16", "17"]
+        node: ["14", "16", "17"]
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
@@ -27,13 +27,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-
 
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: 6
           run_install: true
 
       - name: Verify formatting
-        run: pnpm prettier --check .
+        run: pnpm prettier --check --ignore-path=.gitignore .
 
       - name: Run linter
         run: pnpm eslint --ext .ts .
