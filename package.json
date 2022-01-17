@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "jest",
-    "fmt": "pnpm lint && pnpm prettier --write --ignore-path=.gitignore .",
+    "fmt": "pnpm lint && pnpm prettier --write .",
     "lint": "eslint --ext .ts --fix .",
     "build": "tsup ./pkg/index.ts --format=cjs,esm --dts --clean --splitting"
   },
