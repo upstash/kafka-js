@@ -1,11 +1,10 @@
 name: Test
 on:
   pull_request:
-    paths:
-      - "pkg/**"
-      - "deno.json"
-      - ".github/workflows/ci.yml"
-
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      
 jobs:
   test:
     runs-on: ubuntu-latest
