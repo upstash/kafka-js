@@ -5,3 +5,5 @@ coverage
 .env*
 !.env.example
 .pnpm-debug.log
+dist/
+.idea/

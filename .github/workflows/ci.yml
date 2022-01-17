@@ -2,43 +2,16 @@ name: Test
 on:
   pull_request:
     paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-      
+      - "README.md"
+      - "LICENSE"
+
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Setup repo
-        uses: actions/checkout@v2
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-
-      - name: Verify formatting
-        run: deno fmt --check
-
-      - name: Run linter
-        run: deno lint
-
-      - run: touch .env
-      - name: Run tests
-        run: make test
-        env:
-          UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
-          UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
-          UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
-
-  test_node:
-    needs: [test]
     strategy:
       fail-fast: false
       matrix:
         node: ["14", "16", "17"]
-    runs-on: ubuntu-latest
-
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
@@ -46,15 +19,31 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
         with:
-          deno-version: v1.x
-      - run: touch .env
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
 
-      - name: Test
-        run: make build
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6
+          run_install: true
+
+      - name: Verify formatting
+        run: pnpm prettier --check --ignore-path=.gitignore .
+
+      - name: Run linter
+        run: pnpm eslint --ext .ts .
+
+      - name: Run tests
+        run: pnpm test
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
+
+      - name: Build
+        run: pnpm build

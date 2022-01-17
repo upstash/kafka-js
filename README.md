@@ -4,37 +4,22 @@ An HTTP/REST based Kafka client built on top of
 [Upstash REST API](https://docs.upstash.com/kafka/rest).
 
 [![codecov](https://codecov.io/gh/chronark/upstash-kafka/branch/main/graph/badge.svg?token=BBJ1FCHPF0)](https://codecov.io/gh/chronark/upstash-kafka)
-
-This project is written using the [deno](https://deno.land/) runtime and then
-transpiled to node and published as a package on npm.
-
-# Requirements
-
-Either deno 1.x or node 14.x and higher
+![npm (scoped)](https://img.shields.io/npm/v/@upstash/kafka)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@upstash/kafka)
 
 # Installation
+
+## Node
+
+```bash
+npm install @upstash/kafka
+```
 
 ## Deno
 
 ```
 import { Kafka } from "https://deno.land/x/upstash_kafka/mod.ts"
 ```
-
-## Node
-
-```bash
-npm install @chronark/upstash-kafka
-```
-
-```bash
-yarn add @chronark/upstash-kafka
-```
-
-```bash
-pnpm add @chronark/upstash-kafka
-```
-
-You get the idea.
 
 # Quickstart
 
@@ -44,27 +29,27 @@ You get the idea.
 2. Copy the `REST API` secrets at the bottom of the page
 
 ```typescript
-import { Kafka } from "@chronark/upstash-kafka";
+import { Kafka } from "@upstash/kafka"
 
 const kafka = new Kafka({
   url: "<UPSTASH_KAFKA_REST_URL>",
   username: "<UPSTASH_KAFKA_REST_USERNAME>",
   password: "<UPSTASH_KAFKA_REST_PASSWORD>",
-});
+})
 ```
 
 ## Produce a single message
 
 ```typescript
-const p = kafka.producer();
-const message = { hello: "world" }; // Objects will get serialized using `JSON.stringify`
-const res = await p.produce("<my.topic>", message);
+const p = kafka.producer()
+const message = { hello: "world" } // Objects will get serialized using `JSON.stringify`
+const res = await p.produce("<my.topic>", message)
 const res = await p.produce("<my.topic>", message, {
   partition: 1,
   timestamp: 12345,
   key: "<custom key>",
   headers: [{ key: "traceId", value: "85a9f12" }],
-});
+})
 ```
 
 ## Produce multiple messages.
@@ -72,7 +57,7 @@ const res = await p.produce("<my.topic>", message, {
 The same options from the example above can be set for every message.
 
 ```typescript
-const p = kafka.producer();
+const p = kafka.producer()
 const res = await p.produceMany([
   {
     topic: "my.topic",
@@ -84,7 +69,7 @@ const res = await p.produceMany([
     value: "another message",
     // ...options
   },
-]);
+])
 ```
 
 ## Consume
@@ -96,17 +81,17 @@ created first time, it may return empty messages until consumer group
 coordination is completed.
 
 ```typescript
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.consume({
   consumerGroupId: "group_1",
   instanceId: "instance_1",
   topics: ["test.topic"],
   autoOffsetReset: "earliest",
-});
+})
 ```
 
 More examples can be found in the
-[docstring](https://github.com/chronark/upstash-kafka/blob/main/pkg/consumer.ts#L265)
+[docstring](https://github.com/upstash/upstash-kafka/blob/main/pkg/consumer.ts#L265)
 
 ## Commit manually
 
@@ -114,17 +99,17 @@ While `consume` can handle committing automatically, you can also use
 `Consumer.commit` to manually commit.
 
 ```typescript
-const consumerGroupId = "mygroup";
-const instanceId = "myinstance";
-const topic = "my.topic";
+const consumerGroupId = "mygroup"
+const instanceId = "myinstance"
+const topic = "my.topic"
 
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.consume({
   consumerGroupId,
   instanceId,
   topics: [topic],
   autoCommit: false,
-});
+})
 
 for (const message of messages) {
   // message handling logic
@@ -137,7 +122,7 @@ for (const message of messages) {
       partition: message.partition,
       offset: message.offset,
     },
-  });
+  })
 }
 ```
 
@@ -146,22 +131,29 @@ for (const message of messages) {
 You can also manage offsets manually by using `Consumer.fetch`
 
 ```typescript
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.fetch({
   topic: "greeting",
   partition: 3,
   offset: 42,
   timeout: 1000,
-});
+})
 ```
 
 ## Examples
 
 There is a minimal working example application available in
-[/example](https://github.com/chronark/upstash-kafka/tree/main/example) as well
+[/example](https://github.com/upstash/upstash-kafka/tree/main/example) as well
 as various examples in the docstrings of each method.
 
 # Contributing
+
+This project is written using the [deno](https://deno.land/) runtime and then
+transpiled to node and published as a package on npm.
+
+# Requirements
+
+Either deno 1.x or node 14.x and higher
 
 ## Setup
 
@@ -173,6 +165,7 @@ as various examples in the docstrings of each method.
    [docs](https://docs.upstash.com/kafka#create-a-topic)
 
    The partitions or retention settings don't matter at this time.
+
 3. Create `.env` file with your kafka secrets `cp .env.example .env`
 
 ## Running tests
@@ -186,7 +179,7 @@ make test
 Following command builds the node package with the specified version:
 
 ```bash
-make build version=v1.x.y
+make build version=1.x.y
 ```
 
 Alternatively, if `version` argument is omitted, the most recent git tag is used
@@ -205,5 +198,5 @@ you can configure the build pipeline in `/cmd/build.ts`
 await build({
   test: false, // <-- add this
   // ... remaining config
-});
+})
 ```
