@@ -34,7 +34,7 @@ jobs:
           run_install: true
 
       - name: Set version
-        run: echo $(jq -r '(.version) = "${VERSION}"' package.json) > package.json
+        run: echo $(jq --arg v "$VERSION" '(.version) = $v' package.json) > package.json
       - name: Debug
         run: cat package.json
       - name: Build
