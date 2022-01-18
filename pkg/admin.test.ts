@@ -1,7 +1,7 @@
 import { kafka, Topic } from "./test_setup"
 import { Kafka } from "./kafka"
 import { UpstashError } from "./error"
-import { test, expect, describe } from "@jest/globals"
+import { describe, expect, test } from "@jest/globals"
 import { randomUUID } from "crypto"
 
 test("fails with wrong auth", async () => {

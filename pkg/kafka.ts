@@ -2,6 +2,7 @@ import { Admin } from "./admin"
 import { Producer } from "./producer"
 import { Consumer } from "./consumer"
 import { HttpClient } from "./http"
+import { base64 } from "./base64"
 /**
  * Connection credentials for upstash kafka.
  * Get them from https://console.upstash.com/kafka/<uuid>
@@ -45,9 +46,7 @@ export class Kafka {
     this.client = new HttpClient({
       baseUrl: config.url,
       headers: {
-        authorization: `Basic ${Buffer.from(`${config.username}:${config.password}`).toString(
-          "base64",
-        )}`,
+        authorization: `Basic ${base64(`${config.username}:${config.password}`)}`,
       },
     })
   }

@@ -9,16 +9,8 @@ An HTTP/REST based Kafka client built on top of
 
 # Installation
 
-## Node
-
 ```bash
 npm install @upstash/kafka
-```
-
-## Deno
-
-```
-import { Kafka } from "https://deno.land/x/upstash_kafka/mod.ts"
 ```
 
 # Quickstart
@@ -142,23 +134,19 @@ const messages = await c.fetch({
 
 ## Examples
 
-There is a minimal working example application available in
-[/example](https://github.com/upstash/upstash-kafka/tree/main/example) as well
-as various examples in the docstrings of each method.
+See [/examples](https://github.com/upstash/upstash-kafka/tree/main/examples) as
+well as various examples in the docstrings of each method.
 
 # Contributing
 
-This project is written using the [deno](https://deno.land/) runtime and then
-transpiled to node and published as a package on npm.
+## Requirements
 
-# Requirements
-
-Either deno 1.x or node 14.x and higher
+- [nodejs](https://nodejs.org) v14.x or higher
+- [pnpm](https://pnpm.io/installation)
 
 ## Setup
 
-0. [Install Deno](https://deno.land/#installation)
-
+0. Install dependencies using `pnpm install`
 1. Create a kafka instance on upstash.
    [docs](https://docs.upstash.com/kafka#create-a-kafka-cluster)
 2. Create the following topics: `blue`, `red`, `green`.
@@ -171,32 +159,5 @@ Either deno 1.x or node 14.x and higher
 ## Running tests
 
 ```bash
-make test
-```
-
-## Building for node
-
-Following command builds the node package with the specified version:
-
-```bash
-make build version=1.x.y
-```
-
-Alternatively, if `version` argument is omitted, the most recent git tag is used
-as the package version.
-
-```bash
-make build
-```
-
-A `/npm` folder will be created with the built node module. As part of the build
-process the tests are run against your installed node version. To disable this,
-you can configure the build pipeline in `/cmd/build.ts`
-
-```typescript
-// ...
-await build({
-  test: false, // <-- add this
-  // ... remaining config
-})
+pnpm test
 ```
