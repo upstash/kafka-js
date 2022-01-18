@@ -35,7 +35,7 @@ jobs:
 
       - name: Set version
         run: echo $(jq --arg v "$VERSION" '(.version) = $v' package.json) > package.json
-      
+
       - name: Build
         run: pnpm build
       - name: Publish
