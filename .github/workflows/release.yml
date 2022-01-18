@@ -33,12 +33,16 @@ jobs:
           version: 6
           run_install: true
 
+      - name: Set version
+        run: echo $(jq -r '(.version) = "${VERSION}"' package.json) > package.json
+      - name: Debug
+        run: cat package.json
       - name: Build
         run: pnpm build
-      - name: Publish
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
-          npm publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish
+      #   run: |
+      #     echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
+      #     npm publish
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
