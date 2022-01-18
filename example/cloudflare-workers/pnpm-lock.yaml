@@ -1,0 +1,7 @@
+lockfileVersion: 5.3
+
+specifiers:
+  "@upstash/kafka": link:../..
+
+dependencies:
+  "@upstash/kafka": link:../..
