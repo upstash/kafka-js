@@ -1,6 +1,6 @@
 import { kafka, Topic } from "./test_setup"
 import { randomUUID } from "crypto"
-import { describe, test, expect } from "@jest/globals"
+import { describe, expect, test } from "@jest/globals"
 describe("consume()", () => {
   test("Consume from a single topic", async () => {
     const p = kafka.producer()

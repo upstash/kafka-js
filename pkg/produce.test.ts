@@ -1,5 +1,5 @@
 import { kafka, Topic } from "./test_setup"
-import { it, expect } from "@jest/globals"
+import { expect, it } from "@jest/globals"
 
 it("publishes a single message succesfully", async () => {
   const p = kafka.producer()
