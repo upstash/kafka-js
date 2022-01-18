@@ -1,6 +1,6 @@
 import { HttpClient } from "./http"
 
-import { test, expect } from "@jest/globals"
+import { expect, test } from "@jest/globals"
 test("remove trailing slash from urls", () => {
   const client = new HttpClient({
     baseUrl: "https://example.com/",

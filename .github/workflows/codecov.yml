@@ -12,23 +12,16 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Setup Deno
-        # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
 
       - name: Run tests
-        run: deno test -A --unstable --coverage=coverage
+        run: pnpm test
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
-      - name: Convert coverage
-        run: deno --unstable coverage ./coverage --lcov > coverage.lcov
+
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.lcov
           fail_ci_if_error: true
           verbose: true
