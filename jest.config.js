@@ -195,5 +195,5 @@ module.exports = {
   // watchman: true,
 
   injectGlobals: false,
-  testTimeout: 20_000,
+  testTimeout: 60_000,
 }
