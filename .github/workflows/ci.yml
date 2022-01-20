@@ -1,9 +1,6 @@
 name: Test
 on:
   pull_request:
-    paths-ignore:
-      - "README.md"
-      - "LICENSE"
 
 jobs:
   test:
