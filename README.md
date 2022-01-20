@@ -7,6 +7,16 @@ An HTTP/REST based Kafka client built on top of
 ![npm (scoped)](https://img.shields.io/npm/v/@upstash/kafka)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@upstash/kafka)
 
+It is the only connectionless (HTTP based) Kafka client and designed for:
+
+- Serverless functions (AWS Lambda ...)
+- Cloudflare Workers (see the example)
+- Fastly Compute@Edge
+- Next.js Edge, Remix ...
+- Client side web/mobile applications
+- WebAssembly
+  and other environments where HTTP is preferred over TCP connections.
+
 # Installation
 
 ```bash
