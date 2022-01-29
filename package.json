@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/upstash/upstash-kafka#readme",
   "directories": {
-    "example": "examples"
+    "examples": "examples"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",
