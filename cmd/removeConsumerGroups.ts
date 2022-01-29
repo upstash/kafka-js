@@ -1,4 +1,6 @@
 import { Kafka } from "../pkg/kafka"
+import { config } from "dotenv"
+config()
 
 async function main() {
   const url = process.env["UPSTASH_KAFKA_REST_URL"]
