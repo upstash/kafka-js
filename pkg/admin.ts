@@ -17,7 +17,7 @@ export type OffsetsRequest = {
 
 export type TopicPartitionOffsetsRequest = {
   /**
-   * Unix timestamp in seconds or `earliest` or `latest`
+   * Unix timestamp in milliseconds or `earliest` or `latest`
    */
   timestamp: number | "earliest" | "latest"
 } & (
