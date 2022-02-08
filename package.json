@@ -15,7 +15,7 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files":[
+  "files": [
     "package.json",
     "dist"
   ],
