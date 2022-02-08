@@ -59,5 +59,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^3.0.0"
+  },
+  "browser": {
+    "isomorphic-fetch": false
   }
 }
