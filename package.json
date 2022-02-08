@@ -11,10 +11,14 @@
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./index.mjs",
+      "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "package.json",
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "fmt": "pnpm lint && pnpm prettier --write .",
@@ -59,5 +63,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^3.0.0"
+  },
+  "browser": {
+    "isomorphic-fetch": false
   }
 }
