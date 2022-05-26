@@ -1,28 +1,12 @@
 import { Message } from "./types"
 import { HttpClient } from "./http"
 
-export type TopicPartition = {
-  topic: string
-  partition: number
-}
-export type TopicPartitionOffset = TopicPartition & {
-  offset: number
-}
+export type TopicPartition = { topic: string; partition: number }
+export type TopicPartitionOffset = TopicPartition & { offset: number }
 
-export type FetchRequest = {
-  timeout?: number
-  topicPartitionOffsets?: TopicPartitionOffset[]
-} & (
-  | {
-      topic: string
-      partition: number
-      offset: number
-    }
-  | {
-      topic?: never
-      partition?: never
-      offset?: never
-    }
+export type FetchRequest = { timeout?: number; topicPartitionOffsets?: TopicPartitionOffset[] } & (
+  | { topic: string; partition: number; offset: number }
+  | { topic?: never; partition?: never; offset?: never }
 )
 
 type BaseConsumerRequest = {
@@ -31,7 +15,6 @@ type BaseConsumerRequest = {
    * @see https://kafka.apache.org/documentation/#consumerconfigs_group.id
    */
   consumerGroupId: string
-
   /**
    * Used to identify kafka consumer instances in the same consumer group.
    * Each consumer instance id is handled by a separate consumer client.
@@ -41,25 +24,21 @@ type BaseConsumerRequest = {
 }
 export type ConsumeRequest = BaseConsumerRequest & {
   topics: string[]
-
   /**
    * Defines the time to wait at most for the fetch request in milliseconds.
    * It's optional and its default value 1000.
    */
   timeout?: number
-
   /**
    * If true, the consumer's offset will be periodically committed in the background.
    */
   autoCommit?: boolean
-
   /**
    * The frequency in milliseconds that the consumer offsets are auto-committed to Kafka
    * if auto commit is enabled.
    * Default is 5000.
    */
   autoCommitInterval?: number
-
   /**
    * What to do when there is no initial offset in Kafka or if the current
    * offset does not exist any more on the server. Default value is `latest`.
@@ -94,9 +73,7 @@ export type CommitRequest = BaseConsumerRequest & {
   offset?: TopicPartitionOffset | TopicPartitionOffset[]
 }
 
-export type CommittedRequest = BaseConsumerRequest & {
-  topicPartitions: TopicPartition[]
-}
+export type CommittedRequest = BaseConsumerRequest & { topicPartitions: TopicPartition[] }
 
 /**
  * Consumer APIs are used to fetch/consume messages from Kafka topics. Similar
@@ -165,10 +142,7 @@ export class Consumer {
     let requests = [req]
 
     if (opts?.parallel) {
-      requests = (req.topicPartitionOffsets ?? []).map((r) => ({
-        ...r,
-        timeout: req.timeout,
-      }))
+      requests = (req.topicPartitionOffsets ?? []).map((r) => ({ ...r, timeout: req.timeout }))
       if (req.topic) {
         requests.push({
           topic: req.topic,
@@ -179,13 +153,7 @@ export class Consumer {
       }
     }
     const responses = await Promise.all(
-      requests.map(
-        async (r) =>
-          await this.client.post<Message[]>({
-            path: ["fetch"],
-            body: r,
-          }),
-      ),
+      requests.map(async (r) => await this.client.post<Message[]>({ path: ["fetch"], body: r })),
     )
 
     return responses.flat()

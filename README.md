@@ -14,8 +14,8 @@ It is the only connectionless (HTTP based) Kafka client and designed for:
 - Fastly Compute@Edge
 - Next.js Edge, Remix ...
 - Client side web/mobile applications
-- WebAssembly
-  and other environments where HTTP is preferred over TCP connections.
+- WebAssembly and other environments where HTTP is preferred over TCP
+  connections.
 
 # Installation
 

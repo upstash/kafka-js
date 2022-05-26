@@ -12,12 +12,10 @@ export type KafkaConfig = {
    * UPSTASH_KAFKA_REST_URL
    */
   url: string
-
   /**
    * UPSTASH_KAFKA_REST_USERNAME
    */
   username: string
-
   /**
    * UPSTASH_KAFKA_REST_PASSWORD
    */

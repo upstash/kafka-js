@@ -1,18 +1,9 @@
 import { TopicPartition, TopicPartitionOffset } from "./consumer"
 import { HttpClient } from "./http"
 
-export type OffsetsRequest = {
-  consumerGroupId: string
-  instanceId: string
-} & (
-  | {
-      topicPartition?: never
-      topicPartitions: TopicPartition[]
-    }
-  | {
-      topicPartition: TopicPartition
-      topicPartitions?: never
-    }
+export type OffsetsRequest = { consumerGroupId: string; instanceId: string } & (
+  | { topicPartition?: never; topicPartitions: TopicPartition[] }
+  | { topicPartition: TopicPartition; topicPartitions?: never }
 )
 
 export type TopicPartitionOffsetsRequest = {
@@ -21,37 +12,20 @@ export type TopicPartitionOffsetsRequest = {
    */
   timestamp: number | "earliest" | "latest"
 } & (
-  | {
-      topicPartition?: never
-      topicPartitions: TopicPartition[]
-    }
-  | {
-      topicPartition: TopicPartition
-      topicPartitions?: never
-    }
+  | { topicPartition?: never; topicPartitions: TopicPartition[] }
+  | { topicPartition: TopicPartition; topicPartitions?: never }
 )
 
 /**
  * Topic names and their partitions
  */
-export type GetTopicsResponse = {
-  [topic: string]: number
-}
+export type GetTopicsResponse = { [topic: string]: number }
 
-type TopicAssignments = {
-  topic: string
-  partitions: number[]
-}
+type TopicAssignments = { topic: string; partitions: number[] }
 
-type InstanceAssignments = {
-  name: string
-  topics: TopicAssignments[]
-}
+type InstanceAssignments = { name: string; topics: TopicAssignments[] }
 
-type GroupAssignments = {
-  name: string
-  instances: InstanceAssignments[]
-}
+type GroupAssignments = { name: string; instances: InstanceAssignments[] }
 export class Admin {
   private readonly client: HttpClient
 
@@ -69,9 +43,7 @@ export class Admin {
    * Lists consumers belonging to the user known by the REST server.
    */
   public async consumers(): Promise<GroupAssignments[]> {
-    return await this.client.get<GroupAssignments[]>({
-      path: ["consumers"],
-    })
+    return await this.client.get<GroupAssignments[]>({ path: ["consumers"] })
   }
 
   /**

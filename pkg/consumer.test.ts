@@ -89,11 +89,7 @@ describe("commit()", () => {
     await c.commit({
       consumerGroupId,
       instanceId,
-      offset: {
-        partition,
-        topic,
-        offset,
-      },
+      offset: { partition, topic, offset },
     })
 
     const postCommit = await c.committed({

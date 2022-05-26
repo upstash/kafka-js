@@ -16,11 +16,7 @@ async function main() {
     throw new Error("Could not find password")
   }
 
-  const kafka = new Kafka({
-    url,
-    username,
-    password,
-  })
+  const kafka = new Kafka({ url, username, password })
 
   const a = kafka.admin()
   const existingConsumers = await a.consumers()

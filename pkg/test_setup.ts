@@ -16,11 +16,7 @@ if (!password) {
   throw new Error("UPSTASH_KAFKA_REST_PASSWORD env missing")
 }
 
-export const kafka = new Kafka({
-  url,
-  username,
-  password,
-})
+export const kafka = new Kafka({ url, username, password })
 
 /* eslint-disable no-unused-vars */
 export enum Topic {

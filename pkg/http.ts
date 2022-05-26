@@ -7,9 +7,7 @@ export type Request = {
    * Request body will be serialized to json
    */
   body?: unknown
-
   headers?: Record<string, string>
-
   retries?: number
 }
 

@@ -9,11 +9,7 @@ test("fails with wrong auth", async () => {
   if (!url) {
     throw new Error("TEST SETUP FAILED")
   }
-  const admin = new Kafka({
-    url,
-    username: "username",
-    password: "password",
-  }).admin()
+  const admin = new Kafka({ url, username: "username", password: "password" }).admin()
 
   await expect(() => admin.topics()).rejects.toThrowError(UpstashError)
 })
@@ -32,11 +28,7 @@ describe("consumers()", () => {
     const consumerGroupId = randomUUID()
     const instanceId = randomUUID()
     const c = kafka.consumer()
-    await c.consume({
-      consumerGroupId,
-      instanceId,
-      topics: [Topic.BLUE],
-    })
+    await c.consume({ consumerGroupId, instanceId, topics: [Topic.BLUE] })
     const admin = kafka.admin()
     const consumers = await admin.consumers()
     await admin.removeConsumerInstance(consumerGroupId, instanceId)
@@ -96,10 +88,7 @@ describe("committedOffsets()", () => {
     const offsets = await admin.committedOffsets({
       consumerGroupId,
       instanceId,
-      topicPartition: {
-        topic: Topic.BLUE,
-        partition: 0,
-      },
+      topicPartition: { topic: Topic.BLUE, partition: 0 },
     })
 
     expect(offsets.length).toBe(1)
@@ -149,14 +138,8 @@ describe("committedOffsets()", () => {
       consumerGroupId,
       instanceId,
       topicPartitions: [
-        {
-          topic: Topic.BLUE,
-          partition: 0,
-        },
-        {
-          topic: Topic.RED,
-          partition: 0,
-        },
+        { topic: Topic.BLUE, partition: 0 },
+        { topic: Topic.RED, partition: 0 },
       ],
     })
 
@@ -173,16 +156,11 @@ describe("topicPartitionOffsets()", () => {
     const admin = kafka.admin()
     const p = kafka.producer()
 
-    const { topic, partition } = await p.produce(Topic.RED, randomUUID(), {
-      partition: 0,
-    })
+    const { topic, partition } = await p.produce(Topic.RED, randomUUID(), { partition: 0 })
 
     const partitionOffsets = await admin.topicPartitionOffsets({
       timestamp: Math.floor(Date.now() / 1000),
-      topicPartition: {
-        topic,
-        partition,
-      },
+      topicPartition: { topic, partition },
     })
 
     expect(partitionOffsets.length).toBe(1)
@@ -194,24 +172,14 @@ describe("topicPartitionOffsets()", () => {
     const admin = kafka.admin()
     const p = kafka.producer()
 
-    await p.produce(Topic.RED, randomUUID(), {
-      partition: 0,
-    })
-    await p.produce(Topic.BLUE, randomUUID(), {
-      partition: 0,
-    })
+    await p.produce(Topic.RED, randomUUID(), { partition: 0 })
+    await p.produce(Topic.BLUE, randomUUID(), { partition: 0 })
 
     const partitionOffsets = await admin.topicPartitionOffsets({
       timestamp: Math.floor(Date.now() / 1000),
       topicPartitions: [
-        {
-          topic: Topic.BLUE,
-          partition: 0,
-        },
-        {
-          topic: Topic.RED,
-          partition: 0,
-        },
+        { topic: Topic.BLUE, partition: 0 },
+        { topic: Topic.RED, partition: 0 },
       ],
     })
 

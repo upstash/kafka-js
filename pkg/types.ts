@@ -1,7 +1,4 @@
-export type Header = {
-  key: string
-  value: string
-}
+export type Header = { key: string; value: string }
 
 export type Message = {
   topic: string

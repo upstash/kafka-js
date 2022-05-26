@@ -9,13 +9,11 @@ export type ProduceOptions = {
    * Will be assigned by kafka if left empty.
    */
   partition?: number
-
   /**
    * The unix timestamp in seconds.
    * Will be assigned by kafka if left empty.
    */
   timestamp?: number
-
   /**
    * Events with the same event key (e.g., a customer or vehicle ID) are written
    * to the same partition, and Kafka guarantees that any consumer of a given
@@ -23,7 +21,6 @@ export type ProduceOptions = {
    * same order as they were written.
    */
   key?: string
-
   headers?: { key: string; value: string }[]
 }
 
