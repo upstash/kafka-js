@@ -7,3 +7,7 @@ coverage
 .pnpm-debug.log
 dist/
 .idea/
+
+examples/**/pnpm-lock.yaml
+examples/**/yarn.lock
+examples/**/package-lock.json
