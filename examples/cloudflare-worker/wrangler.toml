@@ -1,0 +1,25 @@
+name = "upstash-kafka"
+type = "javascript"
+
+workers_dev = true
+# route = ""
+# zone_id = ""
+
+compatibility_date = "2022-03-22"
+compatibility_flags = []
+
+
+[build]
+command = "pnpm build"
+
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "./index.mjs"
+
+
+# Set variables here or on cloudflare
+# [vars]
+# UPSTASH_KAFKA_REST_URL="<REPLACE>
+# UPSTASH_KAFKA_REST_USERNAME="<REPLACE>
+# UPSTASH_KAFKA_REST_PASSWORD="<REPLACE>

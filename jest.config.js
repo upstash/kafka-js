@@ -172,9 +172,7 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform: {
-    "^.+\\.ts$": "ts-jest",
-  },
+  transform: { "^.+\\.ts$": "ts-jest" },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -196,4 +194,4 @@ module.exports = {
 
   injectGlobals: false,
   testTimeout: 60_000,
-}
+};
