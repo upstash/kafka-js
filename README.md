@@ -31,27 +31,27 @@ npm install @upstash/kafka
 2. Copy the `REST API` secrets at the bottom of the page
 
 ```typescript
-import { Kafka } from "@upstash/kafka";
+import { Kafka } from "@upstash/kafka"
 
 const kafka = new Kafka({
   url: "<UPSTASH_KAFKA_REST_URL>",
   username: "<UPSTASH_KAFKA_REST_USERNAME>",
   password: "<UPSTASH_KAFKA_REST_PASSWORD>",
-});
+})
 ```
 
 ## Produce a single message
 
 ```typescript
-const p = kafka.producer();
-const message = { hello: "world" }; // Objects will get serialized using `JSON.stringify`
-const res = await p.produce("<my.topic>", message);
+const p = kafka.producer()
+const message = { hello: "world" } // Objects will get serialized using `JSON.stringify`
+const res = await p.produce("<my.topic>", message)
 const res = await p.produce("<my.topic>", message, {
   partition: 1,
   timestamp: 12345,
   key: "<custom key>",
   headers: [{ key: "traceId", value: "85a9f12" }],
-});
+})
 ```
 
 ## Produce multiple messages.
@@ -59,7 +59,7 @@ const res = await p.produce("<my.topic>", message, {
 The same options from the example above can be set for every message.
 
 ```typescript
-const p = kafka.producer();
+const p = kafka.producer()
 const res = await p.produceMany([
   {
     topic: "my.topic",
@@ -71,7 +71,7 @@ const res = await p.produceMany([
     value: "another message",
     // ...options
   },
-]);
+])
 ```
 
 ## Consume
@@ -83,13 +83,13 @@ created first time, it may return empty messages until consumer group
 coordination is completed.
 
 ```typescript
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.consume({
   consumerGroupId: "group_1",
   instanceId: "instance_1",
   topics: ["test.topic"],
   autoOffsetReset: "earliest",
-});
+})
 ```
 
 More examples can be found in the
@@ -101,17 +101,17 @@ While `consume` can handle committing automatically, you can also use
 `Consumer.commit` to manually commit.
 
 ```typescript
-const consumerGroupId = "mygroup";
-const instanceId = "myinstance";
-const topic = "my.topic";
+const consumerGroupId = "mygroup"
+const instanceId = "myinstance"
+const topic = "my.topic"
 
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.consume({
   consumerGroupId,
   instanceId,
   topics: [topic],
   autoCommit: false,
-});
+})
 
 for (const message of messages) {
   // message handling logic
@@ -124,7 +124,7 @@ for (const message of messages) {
       partition: message.partition,
       offset: message.offset,
     },
-  });
+  })
 }
 ```
 
@@ -133,13 +133,13 @@ for (const message of messages) {
 You can also manage offsets manually by using `Consumer.fetch`
 
 ```typescript
-const c = kafka.consumer();
+const c = kafka.consumer()
 const messages = await c.fetch({
   topic: "greeting",
   partition: 3,
   offset: 42,
   timeout: 1000,
-});
+})
 ```
 
 ## Examples

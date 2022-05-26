@@ -1,8 +1,8 @@
-import { Admin } from "./admin";
-import { Producer } from "./producer";
-import { Consumer } from "./consumer";
-import { HttpClient } from "./http";
-import { base64 } from "./base64";
+import { Admin } from "./admin"
+import { Producer } from "./producer"
+import { Consumer } from "./consumer"
+import { HttpClient } from "./http"
+import { base64 } from "./base64"
 /**
  * Connection credentials for upstash kafka.
  * Get them from https://console.upstash.com/kafka/<uuid>
@@ -11,22 +11,22 @@ export type KafkaConfig = {
   /**
    * UPSTASH_KAFKA_REST_URL
    */
-  url: string;
+  url: string
   /**
    * UPSTASH_KAFKA_REST_USERNAME
    */
-  username: string;
+  username: string
   /**
    * UPSTASH_KAFKA_REST_PASSWORD
    */
-  password: string;
-};
+  password: string
+}
 
 /**
  * Serverless Kafka client for upstash.
  */
 export class Kafka {
-  private readonly client: HttpClient;
+  private readonly client: HttpClient
 
   /**
    * Create a new kafka client
@@ -44,32 +44,28 @@ export class Kafka {
     this.client = new HttpClient({
       baseUrl: config.url,
       headers: {
-        authorization: `Basic ${
-          base64(
-            `${config.username}:${config.password}`,
-          )
-        }`,
+        authorization: `Basic ${base64(`${config.username}:${config.password}`)}`,
       },
-    });
+    })
   }
   /**
    * Create a new producer client
    */
   public producer(): Producer {
-    return new Producer(this.client);
+    return new Producer(this.client)
   }
 
   /**
    * Create a new consumer client
    */
   public consumer(): Consumer {
-    return new Consumer(this.client);
+    return new Consumer(this.client)
   }
 
   /**
    * Create a new admin client
    */
   public admin(): Admin {
-    return new Admin(this.client);
+    return new Admin(this.client)
   }
 }
