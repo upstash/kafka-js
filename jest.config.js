@@ -194,4 +194,4 @@ module.exports = {
 
   injectGlobals: false,
   testTimeout: 60_000,
-};
+}
