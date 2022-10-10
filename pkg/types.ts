@@ -1,3 +1,6 @@
+export type { Producer } from "./producer"
+export type { Consumer } from "./consumer"
+
 export type Header = { key: string; value: string }
 
 export type Message = {
