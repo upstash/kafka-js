@@ -63,7 +63,7 @@ const p = kafka.producer()
 const res = await p.produceMany([
   {
     topic: "my.topic",
-    value: "my message",
+    value: { hello: "world" },
     // ...options
   },
   {

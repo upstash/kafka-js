@@ -29,12 +29,12 @@ it("Publish a serialized succesfully", async () => {
 it("publishes multiple messages to different topics succesfully", async () => {
   const p = kafka.producer()
   const c = kafka.consumer()
-  const message0 = { hello: "test" }
-  const message1 = { hello: "world" }
+  const message0 = "test"
+  const message1 = "world"
 
   const res = await p.produceMany([
-    { topic: Topic.RED, value: JSON.stringify(message0) },
-    { topic: Topic.GREEN, value: JSON.stringify(message1) },
+    { topic: Topic.RED, value: message0 },
+    { topic: Topic.GREEN, value: message1 },
   ])
 
   const found = await c.fetch({
@@ -45,6 +45,28 @@ it("publishes multiple messages to different topics succesfully", async () => {
     })),
   })
 
-  expect(found.map((f) => JSON.parse(f.value))).toContainEqual(message0)
-  expect(found.map((f) => JSON.parse(f.value))).toContainEqual(message1)
+  expect(found[0].value).toEqual(message0)
+  expect(found[1].value).toEqual(message1)
+})
+it("publishes multiple serialized messages to different topics succesfully", async () => {
+  const p = kafka.producer()
+  const c = kafka.consumer()
+  const message0 = { hello: "test" }
+  const message1 = { hello: "world" }
+
+  const res = await p.produceMany([
+    { topic: Topic.RED, value: message0 },
+    { topic: Topic.GREEN, value: message1 },
+  ])
+
+  const found = await c.fetch({
+    topicPartitionOffsets: res.map((r) => ({
+      topic: r.topic,
+      partition: r.partition,
+      offset: r.offset,
+    })),
+  })
+
+  expect(JSON.parse(found[0].value)).toEqual(message0)
+  expect(JSON.parse(found[1].value)).toEqual(message1)
 })
