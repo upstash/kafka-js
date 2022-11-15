@@ -66,7 +66,6 @@ it("publishes multiple serialized messages to different topics succesfully", asy
       offset: r.offset,
     })),
   })
-
-  expect(JSON.parse(found[0].value)).toEqual(message0)
+  expect(JSON.parse(found[0].value)).toStrictEqual(message0)
   expect(JSON.parse(found[1].value)).toEqual(message1)
 })
