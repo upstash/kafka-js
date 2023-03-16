@@ -51,12 +51,14 @@ it("publishes multiple messages to different topics succesfully", async () => {
 it("publishes multiple serialized messages to different topics succesfully", async () => {
   const p = kafka.producer()
   const c = kafka.consumer()
+  const key0 = "k0"
+  const key1 = "k1"
   const message0 = { hello: "test" }
   const message1 = { hello: "world" }
 
   const res = await p.produceMany([
-    { topic: Topic.RED, value: message0 },
-    { topic: Topic.GREEN, value: message1 },
+    { topic: Topic.RED, key: key0, value: message0 },
+    { topic: Topic.GREEN, key: key1, value: message1 },
   ])
 
   const found = await c.fetch({
@@ -66,6 +68,10 @@ it("publishes multiple serialized messages to different topics succesfully", asy
       offset: r.offset,
     })),
   })
+
   expect(JSON.parse(found[0].value)).toStrictEqual(message0)
+  expect(found[0].key).toEqual(key0)
+
   expect(JSON.parse(found[1].value)).toEqual(message1)
+  expect(found[1].key).toEqual(key1)
 })
