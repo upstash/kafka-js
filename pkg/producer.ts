@@ -83,8 +83,8 @@ export class Producer {
    * Each entry in the response array belongs to the request with the same order in the requests.
    */
   public async produceMany(requests: ProduceRequest[]): Promise<ProduceResponse[]> {
-    requests = requests.map(({ topic, value }) => ({
-      topic,
+    requests = requests.map(({ value, ...rest }) => ({
+      ...rest,
       value: typeof value === "string" ? value : JSON.stringify(value),
     }))
 
