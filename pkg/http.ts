@@ -1,5 +1,6 @@
 import "isomorphic-fetch"
 import { UpstashError } from "./error"
+import superjson from "superjson"
 
 export type Request = {
   path: string[]
@@ -50,7 +51,7 @@ export class HttpClient {
         const res = await fetch([this.baseUrl, ...req.path].join("/"), {
           method,
           headers,
-          body: JSON.stringify(req.body),
+          body: superjson.stringify(req.body),
         })
 
         const body = await res.json()

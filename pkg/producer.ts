@@ -1,4 +1,5 @@
 import { HttpClient } from "./http"
+import superjson from "superjson"
 
 /**
  * Optional parameters for each produced message
@@ -65,7 +66,7 @@ export class Producer {
   ): Promise<ProduceResponse> {
     const request: ProduceRequest = {
       topic,
-      value: typeof message === "string" ? message : JSON.stringify(message),
+      value: typeof message === "string" ? message : superjson.stringify(message),
       ...opts,
     }
 

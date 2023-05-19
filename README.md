@@ -44,7 +44,7 @@ const kafka = new Kafka({
 
 ```typescript
 const p = kafka.producer()
-const message = { hello: "world" } // Objects will get serialized using `JSON.stringify`
+const message = { hello: "world" } // Objects will get serialized using `superjson.stringify`
 const res = await p.produce("<my.topic>", message)
 const res = await p.produce("<my.topic>", message, {
   partition: 1,
