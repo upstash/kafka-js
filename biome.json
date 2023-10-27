@@ -1,6 +1,5 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.0.0/schema.json",
-
   "linter": {
     "enabled": true,
     "rules": {
@@ -21,11 +20,11 @@
       "performance": {
         "noDelete": "off"
       },
-      "suspicious":{
+      "suspicious": {
         "noExplicitAny": "off"
       }
     },
-    "ignore": ["node_modules", ".next", "dist", ".nuxt", ".contentlayer"]
+    "ignore": ["node_modules", ".next", "dist", ".nuxt", ".contentlayer", "examples"]
   },
   "formatter": {
     "indentStyle": "space",
