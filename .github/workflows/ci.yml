@@ -9,7 +9,7 @@ jobs:
       - name: Setup repo
         uses: actions/checkout@v2
       - name: Install bun
-        uses: npm install bun -g && bun install
+        run: npm install bun -g && bun install
 
       - name: Verify formatting
         run: bunx @biomejs/biome check .
