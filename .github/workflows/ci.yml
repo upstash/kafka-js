@@ -5,38 +5,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        node: ["14", "16", "17"]
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 6
-          run_install: true
+      - name: Install bun
+        uses: npm install bun -g && bun install
 
       - name: Verify formatting
-        run: pnpm prettier --check --ignore-path=.gitignore .
-
-      - name: Run linter
-        run: pnpm eslint --ext .ts .
+        run: bunx @biomejs/biome check .
 
       - name: Run tests
-        run: pnpm test
+        run: bun run test
         env:
           UPSTASH_KAFKA_REST_URL: ${{ secrets.UPSTASH_KAFKA_REST_URL }}
           UPSTASH_KAFKA_REST_USERNAME: ${{ secrets.UPSTASH_KAFKA_REST_USERNAME }}

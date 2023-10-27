@@ -36,11 +36,13 @@ jobs:
       - name: Set version
         run: echo $(jq --arg v "$VERSION" '(.version) = $v' package.json) > package.json
 
+      - name: Set NPM_TOKEN
+        run: npm config set //registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}
+
       - name: Build
-        run: pnpm build
+        run: bun run build
       - name: Publish
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
           npm publish --access public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
