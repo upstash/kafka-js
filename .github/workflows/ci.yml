@@ -22,4 +22,4 @@ jobs:
           UPSTASH_KAFKA_REST_PASSWORD: ${{ secrets.UPSTASH_KAFKA_REST_PASSWORD }}
 
       - name: Build
-        run: pnpm build
+        run: bun run build
