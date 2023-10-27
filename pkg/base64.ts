@@ -20,7 +20,7 @@ export function base64(origin: string): string {
       alphabet[code & 63];
   }
 
-  var pads = origin.length % 3;
+  const pads = origin.length % 3;
   if (pads > 0) {
     encoded = encoded.slice(0, pads - 3);
 

@@ -83,14 +83,14 @@ export class Producer {
    * Each entry in the response array belongs to the request with the same order in the requests.
    */
   public async produceMany(requests: ProduceRequest[]): Promise<ProduceResponse[]> {
-    requests = requests.map(({ value, ...rest }) => ({
+    const transformedRequests = requests.map(({ value, ...rest }) => ({
       ...rest,
       value: typeof value === "string" ? value : JSON.stringify(value),
     }));
 
     return await this.client.post<ProduceResponse[]>({
       path: ["produce"],
-      body: requests,
+      body: transformedRequests,
     });
   }
 }
