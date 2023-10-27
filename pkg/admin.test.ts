@@ -34,7 +34,7 @@ describe("consumers()", () => {
 
     expect(consumers.map((c) => c.name)).toContain(consumerGroupId);
     expect(
-      consumers.find((c) => c.name === consumerGroupId)!.instances.map((i) => i.name)
+      consumers.find((c) => c.name === consumerGroupId)!.instances.map((i) => i.name),
     ).toContain(instanceId);
   });
   test("fails if the consumerGroup or instanceId does not exist", async () => {
@@ -97,7 +97,7 @@ describe("committedOffsets()", () => {
 
       await admin.removeConsumerInstance(consumerGroupId, instanceId);
     },
-    { timeout: 10000 }
+    { timeout: 10000 },
   );
   test(
     "returns the latest offsets for multiple topicPartitions",
@@ -152,7 +152,7 @@ describe("committedOffsets()", () => {
       }
       await admin.removeConsumerInstance(consumerGroupId, instanceId);
     },
-    { timeout: 10000 }
+    { timeout: 10000 },
   );
 });
 

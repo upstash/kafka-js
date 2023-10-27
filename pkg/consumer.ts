@@ -1,44 +1,44 @@
-import { Message } from "./types"
-import { HttpClient } from "./http"
+import { HttpClient } from "./http";
+import { Message } from "./types";
 
-export type TopicPartition = { topic: string; partition: number }
-export type TopicPartitionOffset = TopicPartition & { offset: number }
+export type TopicPartition = { topic: string; partition: number };
+export type TopicPartitionOffset = TopicPartition & { offset: number };
 
 export type FetchRequest = { timeout?: number; topicPartitionOffsets?: TopicPartitionOffset[] } & (
   | { topic: string; partition: number; offset: number }
   | { topic?: never; partition?: never; offset?: never }
-)
+);
 
 type BaseConsumerRequest = {
   /**
    * The name of the consumer group which is used as Kafka consumer group id
    * @see https://kafka.apache.org/documentation/#consumerconfigs_group.id
    */
-  consumerGroupId: string
+  consumerGroupId: string;
   /**
    * Used to identify kafka consumer instances in the same consumer group.
    * Each consumer instance id is handled by a separate consumer client.
    * @see https://kafka.apache.org/documentation/#consumerconfigs_group.instance.id
    */
-  instanceId: string
-}
+  instanceId: string;
+};
 export type ConsumeRequest = BaseConsumerRequest & {
-  topics: string[]
+  topics: string[];
   /**
    * Defines the time to wait at most for the fetch request in milliseconds.
    * It's optional and its default value 1000.
    */
-  timeout?: number
+  timeout?: number;
   /**
    * If true, the consumer's offset will be periodically committed in the background.
    */
-  autoCommit?: boolean
+  autoCommit?: boolean;
   /**
    * The frequency in milliseconds that the consumer offsets are auto-committed to Kafka
    * if auto commit is enabled.
    * Default is 5000.
    */
-  autoCommitInterval?: number
+  autoCommitInterval?: number;
   /**
    * What to do when there is no initial offset in Kafka or if the current
    * offset does not exist any more on the server. Default value is `latest`.
@@ -50,8 +50,8 @@ export type ConsumeRequest = BaseConsumerRequest & {
    * `none`: Throw exception to the consumer if no previous offset is found for the
    * consumer's group.
    */
-  autoOffsetReset?: "earliest" | "latest" | "none"
-}
+  autoOffsetReset?: "earliest" | "latest" | "none";
+};
 
 export type FetchOptions = {
   /**
@@ -63,17 +63,17 @@ export type FetchOptions = {
    *
    * Default: true
    */
-  parallel?: boolean
-}
+  parallel?: boolean;
+};
 
 export type CommitRequest = BaseConsumerRequest & {
   /**
    * Commits the last consumed messages if left empty
    */
-  offset?: TopicPartitionOffset | TopicPartitionOffset[]
-}
+  offset?: TopicPartitionOffset | TopicPartitionOffset[];
+};
 
-export type CommittedRequest = BaseConsumerRequest & { topicPartitions: TopicPartition[] }
+export type CommittedRequest = BaseConsumerRequest & { topicPartitions: TopicPartition[] };
 
 /**
  * Consumer APIs are used to fetch/consume messages from Kafka topics. Similar
@@ -85,10 +85,10 @@ export type CommittedRequest = BaseConsumerRequest & { topicPartitions: TopicPar
  * Consume API has some additional methods if you wish to commit offsets manually.
  */
 export class Consumer {
-  private readonly client: HttpClient
+  private readonly client: HttpClient;
 
   constructor(client: HttpClient) {
-    this.client = client
+    this.client = client;
   }
   /**
    * Fetches the message(s) starting with a given offset inside the partition.
@@ -139,24 +139,24 @@ export class Consumer {
     req: FetchRequest,
     opts: FetchOptions = { parallel: true },
   ): Promise<Message[]> {
-    let requests = [req]
+    let requests = [req];
 
     if (opts?.parallel) {
-      requests = (req.topicPartitionOffsets ?? []).map((r) => ({ ...r, timeout: req.timeout }))
+      requests = (req.topicPartitionOffsets ?? []).map((r) => ({ ...r, timeout: req.timeout }));
       if (req.topic) {
         requests.push({
           topic: req.topic,
           partition: req.partition,
           offset: req.offset,
           timeout: req.timeout,
-        })
+        });
       }
     }
     const responses = await Promise.all(
       requests.map(async (r) => await this.client.post<Message[]>({ path: ["fetch"], body: r })),
-    )
+    );
 
-    return responses.flat()
+    return responses.flat();
   }
 
   /**
@@ -223,33 +223,33 @@ export class Consumer {
    * ```
    */
   public async consume(req: ConsumeRequest): Promise<Message[]> {
-    const body: Record<string, unknown> = {}
+    const body: Record<string, unknown> = {};
     if (req.topics.length === 1) {
-      body.topic = req.topics[0]
+      body.topic = req.topics[0];
     } else {
-      body.topics = req.topics
+      body.topics = req.topics;
     }
 
     if (typeof req.timeout === "number") {
-      body.timeout = req.timeout
+      body.timeout = req.timeout;
     }
 
-    const headers: Record<string, string> = {}
+    const headers: Record<string, string> = {};
     if (typeof req.autoCommit === "boolean") {
-      headers["Kafka-Enable-Auto-Commit"] = req.autoCommit.toString()
+      headers["Kafka-Enable-Auto-Commit"] = req.autoCommit.toString();
     }
     if (typeof req.autoCommitInterval === "number") {
-      headers["Kafka-Auto-Commit-Interval"] = req.autoCommitInterval.toString()
+      headers["Kafka-Auto-Commit-Interval"] = req.autoCommitInterval.toString();
     }
     if (typeof req.autoOffsetReset === "string") {
-      headers["Kafka-Auto-Offset-Reset"] = req.autoOffsetReset
+      headers["Kafka-Auto-Offset-Reset"] = req.autoOffsetReset;
     }
 
     return await this.client.post<Message[]>({
       path: ["consume", req.consumerGroupId, req.instanceId],
       headers,
       body,
-    })
+    });
   }
 
   /**
@@ -294,7 +294,7 @@ export class Consumer {
     return await this.client.post({
       path: ["commit", req.consumerGroupId, req.instanceId],
       body: req.offset,
-    })
+    });
   }
 
   /**
@@ -317,6 +317,6 @@ export class Consumer {
     return await this.client.post<TopicPartitionOffset[]>({
       path: ["committed", req.consumerGroupId, req.instanceId],
       body: req.topicPartitions,
-    })
+    });
   }
 }

@@ -1,5 +1,5 @@
-import { kafka, Topic } from "./test_setup";
 import { expect, it } from "bun:test";
+import { Topic, kafka } from "./test_setup";
 
 it("publishes a single message succesfully", async () => {
   const p = kafka.producer();

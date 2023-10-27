@@ -28,7 +28,7 @@ export class HttpClient {
 
   private async request<TResponse>(
     method: "GET" | "POST" | "PUT" | "DELETE",
-    req: Request
+    req: Request,
   ): Promise<TResponse> {
     const headers = {
       "Content-Type": "application/json",

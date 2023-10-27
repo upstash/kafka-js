@@ -65,7 +65,7 @@ describe("consume()", () => {
 
       expect(messageFound).toBe(true);
     },
-    { timeout: 10000 }
+    { timeout: 10000 },
   );
 });
 describe("commit()", () => {
