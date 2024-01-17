@@ -13,18 +13,15 @@ export type Request = {
 export type HttpClientConfig = {
   headers?: Record<string, string>;
   baseUrl: string;
-  agent: any;
 };
 type ErrorResponse = { result: string; error: string; status: number };
 
 export class HttpClient {
   public readonly baseUrl: string;
   public readonly headers: Record<string, string>;
-  public readonly agent: any;
 
   public constructor(config: HttpClientConfig) {
     this.baseUrl = config.baseUrl.replace(/\/$/, "");
-    this.agent = config.agent;
     this.headers = config.headers ?? {};
   }
 
@@ -34,7 +31,6 @@ export class HttpClient {
   ): Promise<TResponse> {
     const headers = {
       "Content-Type": "application/json",
-      agent: this.agent,
       ...this.headers,
       ...req.headers,
     };
@@ -52,6 +48,7 @@ export class HttpClient {
         const res = await fetch([this.baseUrl, ...req.path].join("/"), {
           method,
           headers,
+          keepalive: true,
           body: JSON.stringify(req.body),
         });
 
