@@ -20,6 +20,22 @@ export type KafkaConfig = {
    * UPSTASH_KAFKA_REST_PASSWORD
    */
   password: string;
+  /**
+   * An agent allows you to reuse connections to reduce latency for multiple sequential requests.
+   *
+   * This is a node specific implementation and is not supported in various runtimes like Vercel
+   * edge functions.
+   *
+   * @example
+   * ```ts
+   * import https from "https"
+   *
+   * const options: KafkaConfig = {
+   *  agent: new https.Agent({ keepAlive: true })
+   * }
+   * ```
+   */
+  agent?: any;
 };
 
 /**
@@ -43,6 +59,7 @@ export class Kafka {
   constructor(config: KafkaConfig) {
     this.client = new HttpClient({
       baseUrl: config.url,
+      agent: config.agent,
       headers: {
         authorization: `Basic ${base64(`${config.username}:${config.password}`)}`,
       },
