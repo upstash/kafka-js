@@ -22,7 +22,6 @@ export class HttpClient {
 
   public constructor(config: HttpClientConfig) {
     this.baseUrl = config.baseUrl.replace(/\/$/, "");
-
     this.headers = config.headers ?? {};
   }
 
@@ -49,6 +48,7 @@ export class HttpClient {
         const res = await fetch([this.baseUrl, ...req.path].join("/"), {
           method,
           headers,
+          keepalive: true,
           body: JSON.stringify(req.body),
         });
 
