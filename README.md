@@ -7,6 +7,11 @@ An HTTP/REST based Kafka client built on top of
 ![npm (scoped)](https://img.shields.io/npm/v/@upstash/kafka)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@upstash/kafka)
 
+> [!NOTE]  
+> **This project is in GA Stage.**
+>
+> The Upstash Professional Support fully covers this project. It receives regular updates, and bug fixes. The Upstash team is committed to maintaining and improving its functionality.
+
 It is the only connectionless (HTTP based) Kafka client and designed for:
 
 - Serverless functions (AWS Lambda ...)
